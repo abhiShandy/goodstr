@@ -7,7 +7,7 @@ const meta: ComponentMeta<typeof AddProductForm> = {
   component: AddProductForm,
   decorators: [
     (Story) => (
-      <div className="mx-48">
+      <div className="max-w-lg mx-auto">
         <Story />
       </div>
     ),
