@@ -44,9 +44,5 @@ export class ServerStack extends Stack {
     const productsEndpoint = restApi.root.addResource("products");
 
     productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
-
-    new CfnOutput(this, "RestAPI", {
-      value: restApi.url,
-    });
   }
 }
