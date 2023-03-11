@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts infra/server.ts",
+  "app": "npx ts-node --prefer-ts-exts infra/App.ts",
   "watch": {
     "include": ["**"],
     "exclude": [
