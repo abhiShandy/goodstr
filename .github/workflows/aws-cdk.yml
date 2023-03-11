@@ -27,6 +27,7 @@ jobs:
         with:
           aws-region: us-east-2
           role-to-assume: arn:aws:iam::316516756945:role/github-ci
+          role-session-name: main-branch-deploy
 
       - name: CDK Deploy
         working-directory: ./server
