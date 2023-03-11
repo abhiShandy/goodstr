@@ -26,7 +26,7 @@ export class ServerStack extends Stack {
     });
 
     const documentDB = new DatabaseCluster(this, "DB", {
-      instanceType: InstanceType.of(InstanceClass.MEMORY5, InstanceSize.MEDIUM),
+      instanceType: InstanceType.of(InstanceClass.T4G, InstanceSize.MEDIUM),
       vpc,
       masterUser: {
         username: "thegoodstr",
