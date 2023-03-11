@@ -1,0 +1,29 @@
+name: AWS CDK Deploy
+
+on:
+  push:
+    paths:
+      - "server/**"
+      - ".github/workflows/aws-cdk.yml"
+
+jobs:
+  cdk-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: CDK Deploy
+        run: npx cdk deploy --all --require-approval never
