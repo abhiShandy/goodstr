@@ -21,13 +21,15 @@ export class ServerStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const vpc = new Vpc(this, "VPC", {});
+    const vpc = new Vpc(this, "VPC", {
+      maxAzs: 2,
+    });
 
     const documentDB = new DatabaseCluster(this, "DB", {
       instanceType: InstanceType.of(InstanceClass.MEMORY5, InstanceSize.MEDIUM),
       vpc,
       masterUser: {
-        username: "server",
+        username: "thegoodstr",
       },
       removalPolicy: RemovalPolicy.DESTROY,
     });
