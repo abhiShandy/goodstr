@@ -7,4 +7,7 @@ new ServerStack(app, "ServerStack", {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
+  tags: {
+    Project: "TheGoodStr",
+  },
 });
