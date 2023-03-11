@@ -25,7 +25,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: arn:aws:iam::316516756945:role/github-ci
           role-session-name: main-branch-deploy
 
