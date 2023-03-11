@@ -16,8 +16,11 @@ const meta: ComponentMeta<typeof AddProductForm> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof AddProductForm> = () => (
-  <AddProductForm />
+const Template: ComponentStory<typeof AddProductForm> = (args) => (
+  <AddProductForm {...args} />
 );
 
 export const Default = Template.bind({});
+Default.args = {
+  onSubmit: () => {},
+};

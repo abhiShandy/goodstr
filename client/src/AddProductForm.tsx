@@ -1,6 +1,24 @@
-export default function AddProductForm() {
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+export type AddProduct = {
+  name: string;
+  description: string;
+  coverImage: FileList;
+  price: number;
+};
+
+export default function AddProductForm({
+  onSubmit,
+}: {
+  onSubmit: SubmitHandler<AddProduct>;
+}) {
+  const { register, handleSubmit } = useForm<AddProduct>();
+
   return (
-    <form className="space-y-8 divide-y divide-gray-200">
+    <form
+      className="space-y-8 divide-y divide-gray-200"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -19,8 +37,8 @@ export default function AddProductForm() {
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
+                  {...register("name")}
                   type="text"
-                  name="name"
                   id="name"
                   autoComplete="name"
                   className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
@@ -30,15 +48,15 @@ export default function AddProductForm() {
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="about"
+                htmlFor="description"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Description
               </label>
               <div className="mt-2">
                 <textarea
-                  id="about"
-                  name="about"
+                  {...register("description")}
+                  id="description"
                   rows={3}
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   defaultValue={""}
@@ -77,7 +95,7 @@ export default function AddProductForm() {
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="cover-photo"
+                htmlFor="coverImage"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Photo
@@ -100,13 +118,13 @@ export default function AddProductForm() {
                   </svg>
                   <div className="flex text-sm text-gray-600">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="coverImage"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2 hover:text-gray-500"
                     >
                       <span>Upload a file</span>
                       <input
-                        id="file-upload"
-                        name="file-upload"
+                        id="coverImage"
+                        {...register("coverImage")}
                         type="file"
                         className="sr-only"
                       />
@@ -130,7 +148,7 @@ export default function AddProductForm() {
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
                   type="number"
-                  name="price"
+                  {...register("price")}
                   id="price"
                   autoComplete="price"
                   className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
