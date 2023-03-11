@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./server
-        run: npm install
+        run: npm ci
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
