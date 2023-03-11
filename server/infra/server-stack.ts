@@ -14,7 +14,7 @@ export class ServerStack extends Stack {
     });
 
     new NodejsFunction(this, "UploadProductImage", {
-      entry: join(__dirname, "./functions/uploadProductImage.ts"),
+      entry: join(__dirname, "../functions/uploadProductImage.ts"),
       environment: {
         BUCKET: bucket.bucketName,
       },
