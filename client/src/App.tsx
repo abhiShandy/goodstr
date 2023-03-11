@@ -3,18 +3,20 @@ import AddProductForm, { AddProduct } from "./AddProductForm";
 import axios from "axios";
 
 function App() {
-  const ADD_PRODUCT_FORM_URL = import.meta.env.BASE_URL + "/products";
-
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
-    console.log("submit", event);
-
     try {
-      await axios.post(ADD_PRODUCT_FORM_URL, {
-        name: event.name,
-        description: event.description,
-        coverImage: event.coverImage, // TODO: handle file upload
-        price: event.price,
-      });
+      const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
+
+      const reader = new FileReader();
+      reader.onload = async function (fileReaderEvent) {
+        await axios.post(PRODUCTS_URL, {
+          name: event.name,
+          description: event.description,
+          coverImage: fileReaderEvent.target?.result,
+          price: event.price,
+        });
+      };
+      reader.readAsBinaryString(event.coverImage[0]);
     } catch (e) {
       console.error("post-error", e);
     }

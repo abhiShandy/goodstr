@@ -121,11 +121,12 @@ export default function AddProductForm({
                       htmlFor="coverImage"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2 hover:text-gray-500"
                     >
-                      <span>Upload a file</span>
+                      <span>Upload an image</span>
                       <input
                         id="coverImage"
                         {...register("coverImage")}
                         type="file"
+                        accept="image/*"
                         className="sr-only"
                       />
                     </label>
