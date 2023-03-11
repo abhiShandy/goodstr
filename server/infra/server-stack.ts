@@ -1,14 +1,8 @@
 import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
-import { DatabaseCluster } from "aws-cdk-lib/aws-docdb";
-import {
-  InstanceClass,
-  InstanceSize,
-  InstanceType,
-  Vpc,
-} from "aws-cdk-lib/aws-ec2";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 import { join } from "path";
 
@@ -21,24 +15,13 @@ export class ServerStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const vpc = new Vpc(this, "VPC", {
-      maxAzs: 2,
-    });
-
-    const documentDB = new DatabaseCluster(this, "DB", {
-      instanceType: InstanceType.of(InstanceClass.T4G, InstanceSize.MEDIUM),
-      vpc,
-      masterUser: {
-        username: "thegoodstr",
-      },
-      removalPolicy: RemovalPolicy.DESTROY,
-    });
+    const secret = Secret.fromSecretNameV2(this, "MONGO_URL", "MONGO_URL");
 
     const createProductFn = new NodejsFunction(this, "CreateProduct", {
       entry: join(__dirname, "../functions/createProduct.ts"),
       environment: {
         BUCKET: bucket.bucketName,
-        MONGO_URL: documentDB.clusterEndpoint.socketAddress,
+        SECRETS_ARN: secret.secretArn,
       },
     });
 
