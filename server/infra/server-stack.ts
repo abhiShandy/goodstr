@@ -26,6 +26,7 @@ export class ServerStack extends Stack {
     });
 
     bucket.grantWrite(createProductFn);
+    secret.grantRead(createProductFn);
 
     const restApi = new RestApi(this, "RestApi", {
       restApiName: "Product Service",
