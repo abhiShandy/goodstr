@@ -13,11 +13,17 @@ export class ServerStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    new NodejsFunction(this, "UploadProductImage", {
-      entry: join(__dirname, "../functions/uploadProductImage.ts"),
-      environment: {
-        BUCKET: bucket.bucketName,
-      },
-    });
+    const uploadProductImageFn = new NodejsFunction(
+      this,
+      "UploadProductImage",
+      {
+        entry: join(__dirname, "../functions/uploadProductImage.ts"),
+        environment: {
+          BUCKET: bucket.bucketName,
+        },
+      }
+    );
+
+    bucket.grantWrite(uploadProductImageFn);
   }
 }
