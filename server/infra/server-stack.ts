@@ -1,4 +1,12 @@
 import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
+import { DatabaseCluster } from "aws-cdk-lib/aws-docdb";
+import {
+  InstanceClass,
+  InstanceSize,
+  InstanceType,
+  Vpc,
+} from "aws-cdk-lib/aws-ec2";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
@@ -13,17 +21,42 @@ export class ServerStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const uploadProductImageFn = new NodejsFunction(
-      this,
-      "UploadProductImage",
-      {
-        entry: join(__dirname, "../functions/uploadProductImage.ts"),
-        environment: {
-          BUCKET: bucket.bucketName,
-        },
-      }
-    );
+    const vpc = new Vpc(this, "VPC", {});
 
-    bucket.grantWrite(uploadProductImageFn);
+    const documentDB = new DatabaseCluster(this, "DB", {
+      instanceType: InstanceType.of(InstanceClass.MEMORY5, InstanceSize.MEDIUM),
+      vpc,
+      masterUser: {
+        username: "server",
+      },
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    const createProductFn = new NodejsFunction(this, "CreateProduct", {
+      entry: join(__dirname, "../functions/createProduct.ts"),
+      environment: {
+        BUCKET: bucket.bucketName,
+        MONGO_URL: documentDB.clusterEndpoint.socketAddress,
+      },
+    });
+
+    bucket.grantWrite(createProductFn);
+
+    const restApi = new RestApi(this, "RestApi", {
+      restApiName: "Product Service",
+      deployOptions: {
+        stageName: "dev",
+      },
+      defaultCorsPreflightOptions: {
+        allowOrigins: ["*"],
+        allowMethods: ["POST"],
+        allowHeaders: ["*"],
+        allowCredentials: true,
+      },
+    });
+
+    const productsEndpoint = restApi.root.addResource("products");
+
+    productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
   }
 }

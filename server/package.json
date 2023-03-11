@@ -11,6 +11,7 @@
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.111",
     "@types/jest": "^27.5.2",
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
@@ -25,6 +26,8 @@
     "aws-cdk-lib": "^2.68.0",
     "constructs": "^10.0.0",
     "esbuild": "^0.17.11",
+    "mongodb": "^5.1.0",
+    "nanoid": "^4.0.1",
     "source-map-support": "^0.5.21"
   }
 }
