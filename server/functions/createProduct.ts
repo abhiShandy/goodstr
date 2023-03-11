@@ -2,6 +2,10 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { MongoClient } from "mongodb";
 import { customAlphabet } from "nanoid";
+import {
+  GetSecretValueCommand,
+  SecretsManagerClient,
+} from "@aws-sdk/client-secrets-manager";
 
 type Product = {
   name: string;
@@ -13,6 +17,7 @@ type Product = {
 const nanoid = customAlphabet("1234567890abdef", 10);
 
 const s3Client = new S3Client({});
+const secretsManagerClient = new SecretsManagerClient({});
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   if (!process.env.BUCKET) {
@@ -26,20 +31,40 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  if (!process.env.MONGO_URL) {
-    console.error("MONGO_URL env var is not set");
+  if (!process.env.SECRETS_ARN) {
+    console.error("SECRETS_ARN env var is not set");
     return {
       statusCode: 500,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "MONGO_URL env var is not set",
+      body: "SECRETS_ARN env var is not set",
     };
   }
 
-  const mongoClient = new MongoClient(process.env.MONGO_URL || "");
+  const secretValue = await secretsManagerClient.send(
+    new GetSecretValueCommand({
+      SecretId: process.env.SECRETS_ARN,
+    })
+  );
+
+  if (!secretValue.SecretString) {
+    console.error("Secret value is not set");
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: "Secret value is not set",
+    };
+  }
+
+  const MONGO_URL = JSON.parse(secretValue.SecretString).MONGO_URL;
+
+  const mongoClient = new MongoClient(MONGO_URL);
 
   if (!event.body) {
+    console.error("Missing request body");
     return {
       statusCode: 400,
       headers: {
@@ -52,6 +77,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   const { name, description, coverImage, price } = JSON.parse(event.body);
 
   if (!name || !description || !coverImage || !price) {
+    console.error("Missing required fields");
     return {
       statusCode: 400,
       headers: {
@@ -75,12 +101,16 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   });
 
   try {
-    await s3Client.send(command);
-
     await mongoClient.connect();
     const db = mongoClient.db("thegoodstr");
     const productsCollection = db.collection<Product>("products");
-    await productsCollection.insertOne(newProduct);
+    const res = await productsCollection.insertOne(newProduct);
+
+    console.log("Inserted product", res.insertedId);
+
+    await s3Client.send(command);
+
+    console.log("Uploaded image to S3");
 
     return {
       statusCode: 204,

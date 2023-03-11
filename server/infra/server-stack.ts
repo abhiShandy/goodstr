@@ -1,4 +1,4 @@
-import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
@@ -44,5 +44,9 @@ export class ServerStack extends Stack {
     const productsEndpoint = restApi.root.addResource("products");
 
     productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
+
+    new CfnOutput(this, "RestAPI", {
+      value: restApi.url,
+    });
   }
 }
