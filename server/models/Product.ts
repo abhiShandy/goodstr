@@ -16,6 +16,8 @@ export class Product {
     id: string;
     name: string;
   };
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor({
     name,
@@ -39,6 +41,8 @@ export class Product {
     this.price = price;
     this.images = images;
     this.seller = seller;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 
   async create() {
