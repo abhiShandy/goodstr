@@ -1,6 +1,7 @@
 import { SubmitHandler } from "react-hook-form";
 import AddProductForm, { AddProduct } from "../lib/AddProductForm";
 import axios from "axios";
+import { Navbar } from "../lib/Navbar";
 
 export const CreateProduct = () => {
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
@@ -30,8 +31,11 @@ export const CreateProduct = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
-      <AddProductForm onSubmit={onSubmit} />
-    </div>
+    <>
+      <Navbar currentPage="add-product" />
+      <div className="max-w-lg mx-auto mt-8">
+        <AddProductForm onSubmit={onSubmit} />
+      </div>
+    </>
   );
 };

@@ -1,6 +1,7 @@
 import ProductList, { Product } from "../lib/ProductList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Navbar } from "../lib/Navbar";
 
 type ListProductResponse = {
   id: number;
@@ -34,5 +35,10 @@ export const Home = () => {
     setLoading(false);
   }, []);
 
-  return <ProductList products={products} isLoading={loading} />;
+  return (
+    <>
+      <Navbar currentPage="home" />
+      <ProductList products={products} isLoading={loading} />
+    </>
+  );
 };
