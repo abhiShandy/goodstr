@@ -46,7 +46,7 @@ export class ServerStack extends Stack {
     secret.grantRead(listProductFn);
 
     const restApi = new RestApi(this, "RestApi", {
-      restApiName: "Product Service",
+      restApiName: `${stage || "dev"}-thegoodstr-api`,
       deployOptions: {
         stageName: stage || "dev",
       },

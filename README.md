@@ -12,6 +12,6 @@ Track the progress on [GitHub](https://github.com/abhiShandy/thegoodstr)
 
 Follow the frontend development on [Chromatic](https://640acbdf2c9db57b4e7da9c6-mjkwjlmqoz.chromatic.com/)
 
-Checkout the [demo](https://d20ell93icoqzv.cloudfront.net)
+Checkout the [demo.thegoodstr.com](https://demo.thegoodstr.com)
 
 Contributors are welcome!
