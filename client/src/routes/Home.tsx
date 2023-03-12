@@ -11,9 +11,11 @@ type ListProductResponse = {
 };
 
 export const Home = () => {
+  const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get<ListProductResponse[]>(import.meta.env.VITE_BASE_URL + "/products")
       .then(({ data }) => {
@@ -30,7 +32,8 @@ export const Home = () => {
         });
         setProducts(products);
       });
+    setLoading(false);
   }, []);
 
-  return <ProductList products={products} />;
+  return <ProductList products={products} isLoading={loading} />;
 };
