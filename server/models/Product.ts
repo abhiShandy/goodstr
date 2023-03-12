@@ -2,6 +2,20 @@ import nanoid from "./utils/nanoid";
 import MongoClient from "./utils/mongo";
 import Image from "./Image";
 
+export type ProductFields = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: Image[];
+  seller: {
+    id: string;
+    name: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 class Product {
   id: string;
   name: string;
@@ -46,7 +60,7 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection("products")
+        .collection<ProductFields>("products")
         .insertOne({
           id: this.id,
           name: this.name,
@@ -54,10 +68,28 @@ class Product {
           price: this.price,
           images: this.images,
           seller: this.seller,
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt,
         });
       console.log("Inserted product: ", res.insertedId);
     } catch (err) {
       console.error("Error inserting product: ", err);
+    }
+  }
+
+  static async list() {
+    try {
+      const mongoClient = await MongoClient();
+      const res = await mongoClient
+        .db("thegoodstr")
+        .collection<ProductFields>("products")
+        .find({}, { limit: 12 })
+        .toArray();
+      console.log("Found products: ", res.length);
+      return res;
+    } catch (err) {
+      console.error("Error finding products: ", err);
+      return [];
     }
   }
 }

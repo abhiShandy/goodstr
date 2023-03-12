@@ -3,7 +3,10 @@ import { ServerStack } from "./ServerStack";
 import { ClientStack } from "./ClientStack";
 
 const app = new App();
-new ServerStack(app, "ServerStack", {
+
+const CLIStage = app.node.tryGetContext("stage");
+
+new ServerStack(app, `Server${CLIStage ? `-${CLIStage}` : ""}`, {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
@@ -13,4 +16,12 @@ new ServerStack(app, "ServerStack", {
   },
 });
 
-new ClientStack(app, "ClientStack", {});
+new ClientStack(app, `Client${CLIStage ? `-${CLIStage}` : ""}`, {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  tags: {
+    Project: "TheGoodStr",
+  },
+});

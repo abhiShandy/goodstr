@@ -5,7 +5,7 @@ class Image {
   type: string;
   constructor(type: string) {
     this.s3Key = "img_" + nanoid() + "." + type.split("/")[1];
-    this.type = type;
+    this.type = type.split("/")[1];
   }
 }
 

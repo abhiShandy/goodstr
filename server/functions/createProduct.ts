@@ -40,30 +40,30 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  const newProduct = new Product({
-    name,
-    description,
-    images: [new Image(images[0].type)],
-    price,
-    seller: {
-      id: "123",
-      name: "John Doe",
-    },
-  });
-
-  // TODO: add support for multiple images
-  const command = new PutObjectCommand({
-    Bucket: process.env.BUCKET,
-    Key: newProduct.images[0].s3Key,
-    ContentType: images[0].type.split("/")[1],
-    ContentEncoding: "base64",
-    Body: Buffer.from(images[0].data, "base64"),
-  });
-
   try {
+    const newImage = new Image(images[0].type);
+    // TODO: move this to Image model
+    const command = new PutObjectCommand({
+      Bucket: process.env.BUCKET,
+      Body: Buffer.from(images[0].data, "base64"),
+      Key: newImage.s3Key,
+      ContentType: newImage.type,
+      ContentEncoding: "base64",
+    });
     await s3Client.send(command);
 
     console.info("Uploaded image to S3");
+
+    const newProduct = new Product({
+      name,
+      description,
+      images: [newImage],
+      price,
+      seller: {
+        id: "123",
+        name: "John Doe",
+      },
+    });
 
     await newProduct.create();
 

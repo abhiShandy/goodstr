@@ -1,4 +1,4 @@
-import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
@@ -27,10 +27,20 @@ export class ServerStack extends Stack {
     bucket.grantWrite(createProductFn);
     secret.grantRead(createProductFn);
 
+    const listProductFn = new NodejsFunction(this, "ListProducts", {
+      entry: join(__dirname, "../server/functions/listProducts.ts"),
+      environment: {
+        BUCKET: bucket.bucketName,
+        SECRETS_ARN: secret.secretArn,
+      },
+    });
+
+    secret.grantRead(listProductFn);
+
     const restApi = new RestApi(this, "RestApi", {
       restApiName: "Product Service",
       deployOptions: {
-        stageName: "dev",
+        stageName: scope.node.tryGetContext("stage") || "dev",
       },
       defaultCorsPreflightOptions: {
         allowOrigins: ["*"],
@@ -43,5 +53,6 @@ export class ServerStack extends Stack {
     const productsEndpoint = restApi.root.addResource("products");
 
     productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
+    productsEndpoint.addMethod("GET", new LambdaIntegration(listProductFn));
   }
 }

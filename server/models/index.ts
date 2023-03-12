@@ -1,5 +1,5 @@
 import User from "./User";
 import Image from "./Image";
-import Product from "./Product";
+import Product, { ProductFields } from "./Product";
 
-export { Image, User, Product };
+export { Image, User, Product, ProductFields };
