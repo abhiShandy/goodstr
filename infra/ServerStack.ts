@@ -14,7 +14,15 @@ export class ServerStack extends Stack {
       publicReadAccess: true,
     });
 
-    const secret = Secret.fromSecretNameV2(this, "MONGO_URL", "MONGO_URL");
+    const stage = scope.node.tryGetContext("stage") as string | undefined;
+
+    const secret = stage
+      ? Secret.fromSecretNameV2(
+          this,
+          `MONGO_URL`,
+          `${stage.toUpperCase()}_MONGO_URL`
+        )
+      : Secret.fromSecretNameV2(this, `MONGO_URL`, `MONGO_URL`);
 
     const createProductFn = new NodejsFunction(this, "CreateProduct", {
       entry: join(__dirname, "../server/functions/createProduct.ts"),
@@ -40,7 +48,7 @@ export class ServerStack extends Stack {
     const restApi = new RestApi(this, "RestApi", {
       restApiName: "Product Service",
       deployOptions: {
-        stageName: scope.node.tryGetContext("stage") || "dev",
+        stageName: stage || "dev",
       },
       defaultCorsPreflightOptions: {
         allowOrigins: ["*"],
