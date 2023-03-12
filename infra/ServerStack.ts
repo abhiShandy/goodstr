@@ -12,7 +12,6 @@ export class ServerStack extends Stack {
 
     const bucket = new Bucket(this, "ProductImages", {
       publicReadAccess: true,
-      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const secret = Secret.fromSecretNameV2(this, "MONGO_URL", "MONGO_URL");
