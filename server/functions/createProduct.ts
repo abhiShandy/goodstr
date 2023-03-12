@@ -10,7 +10,12 @@ import {
 type Product = {
   name: string;
   description: string;
-  imageS3Key: string;
+  images: [
+    {
+      s3Key: string;
+      type: string;
+    }
+  ];
   price: number;
 };
 
@@ -74,9 +79,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  const { name, description, coverImage, price } = JSON.parse(event.body);
+  const { name, description, images, price } = JSON.parse(event.body);
 
-  if (!name || !description || !coverImage || !price) {
+  if (!name || !description || !images || !price) {
     console.error("Missing required fields");
     return {
       statusCode: 400,
@@ -90,27 +95,35 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   const newProduct: Product = {
     name,
     description,
-    imageS3Key: "img_" + nanoid(),
+    images: [
+      {
+        s3Key: "img_" + nanoid() + "." + images[0].type.split("/")[1],
+        type: images[0].type,
+      },
+    ],
     price,
   };
 
+  // TODO: add support for multiple images
   const command = new PutObjectCommand({
     Bucket: process.env.BUCKET,
-    Key: newProduct.imageS3Key,
-    Body: coverImage,
+    Key: newProduct.images[0].s3Key,
+    ContentType: images[0].type.split("/")[1],
+    ContentEncoding: "base64",
+    Body: Buffer.from(images[0].data, "base64"),
   });
 
   try {
+    await s3Client.send(command);
+
+    console.info("Uploaded image to S3");
+
     await mongoClient.connect();
     const db = mongoClient.db("thegoodstr");
     const productsCollection = db.collection<Product>("products");
     const res = await productsCollection.insertOne(newProduct);
 
-    console.log("Inserted product", res.insertedId);
-
-    await s3Client.send(command);
-
-    console.log("Uploaded image to S3");
+    console.info("Inserted product", res.insertedId);
 
     return {
       statusCode: 204,

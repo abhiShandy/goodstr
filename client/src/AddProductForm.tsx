@@ -1,9 +1,9 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export type AddProduct = {
   name: string;
   description: string;
-  coverImage: FileList;
+  image: FileList;
   price: number;
 };
 
@@ -95,7 +95,7 @@ export default function AddProductForm({
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="coverImage"
+                htmlFor="image"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Photo
@@ -118,13 +118,13 @@ export default function AddProductForm({
                   </svg>
                   <div className="flex text-sm text-gray-600">
                     <label
-                      htmlFor="coverImage"
+                      htmlFor="image"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2 hover:text-gray-500"
                     >
                       <span>Upload an image</span>
                       <input
-                        id="coverImage"
-                        {...register("coverImage")}
+                        id="image"
+                        {...register("image")}
                         type="file"
                         accept="image/*"
                         className="sr-only"

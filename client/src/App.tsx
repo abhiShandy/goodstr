@@ -9,14 +9,21 @@ function App() {
 
       const reader = new FileReader();
       reader.onload = async function (fileReaderEvent) {
+        const result = fileReaderEvent.target?.result as string;
+        const base64str = result.replace(/^data:image\/(png|jpeg);base64,/, "");
         await axios.post(PRODUCTS_URL, {
           name: event.name,
           description: event.description,
-          coverImage: fileReaderEvent.target?.result,
+          images: [
+            {
+              type: event.image[0].type,
+              data: base64str,
+            },
+          ],
           price: event.price,
         });
       };
-      reader.readAsBinaryString(event.coverImage[0]);
+      reader.readAsDataURL(event.image[0]);
     } catch (e) {
       console.error("post-error", e);
     }
