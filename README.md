@@ -2,6 +2,10 @@
 
 ## It's a Good store for your digital goods
 
+[![AWS CDK Deploy](https://github.com/abhiShandy/thegoodstr/actions/workflows/aws-cdk.yml/badge.svg)](https://github.com/abhiShandy/thegoodstr/actions/workflows/aws-cdk.yml)
+
+[![Chromatic](https://github.com/abhiShandy/thegoodstr/actions/workflows/chromatic.yml/badge.svg)](https://github.com/abhiShandy/thegoodstr/actions/workflows/chromatic.yml)
+
 Using Nostr and Lightning protocols, I am setting a permissionless platform for selling digital goods and media.
 
 This project is in **active** development
