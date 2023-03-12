@@ -23,6 +23,10 @@ jobs:
         working-directory: ./client
         run: npm ci
 
+      - name: Build Client
+        working-directory: ./client
+        run: npm run build
+
       - name: Install server dependencies
         working-directory: ./server
         run: npm ci
