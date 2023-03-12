@@ -141,14 +141,14 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               </div>
               <div className="-mr-2 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                {/* <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
-                </Disclosure.Button> */}
+                </Disclosure.Button>
               </div>
             </div>
           </div>
@@ -158,19 +158,29 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               {/* Current: "bg-gray-50 border-gray-500 text-gray-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
               <Disclosure.Button
                 as="a"
-                href="#"
-                className="block border-l-4 border-gray-500 bg-gray-50 py-2 pl-3 pr-4 text-base font-medium text-gray-700"
+                href="/"
+                className={
+                  "block border-l-4 py-2 pl-3 pr-4 text-base font-medium" +
+                  (currentPage === "home"
+                    ? " border-gray-500 bg-gray-50 text-gray-700"
+                    : " border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700")
+                }
               >
-                Dashboard
+                Home
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                href="/products/new"
+                className={
+                  "block border-l-4 py-2 pl-3 pr-4 text-base font-medium" +
+                  (currentPage === "add-product"
+                    ? " border-gray-500 bg-gray-50 text-gray-700"
+                    : " border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700")
+                }
               >
-                Team
+                Add Product
               </Disclosure.Button>
-              <Disclosure.Button
+              {/* <Disclosure.Button
                 as="a"
                 href="#"
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
@@ -183,9 +193,9 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
               >
                 Calendar
-              </Disclosure.Button>
+              </Disclosure.Button> */}
             </div>
-            <div className="border-t border-gray-200 pt-4 pb-3">
+            {/* <div className="border-t border-gray-200 pt-4 pb-3">
               <div className="flex items-center px-4">
                 <div className="flex-shrink-0">
                   <img
@@ -233,7 +243,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                   Sign out
                 </Disclosure.Button>
               </div>
-            </div>
+            </div> */}
           </Disclosure.Panel>
         </>
       )}

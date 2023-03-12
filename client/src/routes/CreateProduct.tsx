@@ -33,7 +33,7 @@ export const CreateProduct = () => {
   return (
     <>
       <Navbar currentPage="add-product" />
-      <div className="max-w-lg mx-auto mt-8">
+      <div className="max-w-lg mx-auto mt-8 px-4">
         <AddProductForm onSubmit={onSubmit} />
       </div>
     </>
