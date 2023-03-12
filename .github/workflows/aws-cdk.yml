@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Client
         working-directory: ./client
-        run: npm run build
+        run: npx vite build --mode demo
 
       - name: Install server dependencies
         working-directory: ./server
@@ -39,4 +39,4 @@ jobs:
           role-session-name: main-branch-deploy
 
       - name: CDK Deploy
-        run: npx cdk deploy --all --require-approval never
+        run: npx cdk deploy --all -c stage=demo --require-approval never
