@@ -1,5 +1,12 @@
 import { Stack, StackProps } from "aws-cdk-lib";
-import { CloudFrontWebDistribution } from "aws-cdk-lib/aws-cloudfront";
+import {
+  Certificate,
+  CertificateValidation,
+} from "aws-cdk-lib/aws-certificatemanager";
+import {
+  CloudFrontWebDistribution,
+  ViewerCertificate,
+} from "aws-cdk-lib/aws-cloudfront";
 import { ARecord, HostedZone, RecordTarget } from "aws-cdk-lib/aws-route53";
 import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
 import { Bucket } from "aws-cdk-lib/aws-s3";
@@ -16,14 +23,23 @@ export class ClientStack extends Stack {
       websiteIndexDocument: "index.html",
     });
 
+    const stage = this.node.tryGetContext("stage") || "dev";
+    const domainName = `${stage}.thegoodstr.com`;
+
     const hostedZone = HostedZone.fromLookup(this, "HostedZone", {
-      domainName: "thegoodstr.com",
+      domainName,
+    });
+
+    const sslCert = new Certificate(this, `${stage}Certificate`, {
+      domainName,
+      validation: CertificateValidation.fromDns(hostedZone),
     });
 
     const clientDistribution = new CloudFrontWebDistribution(
       this,
       "ClientDistribution",
       {
+        comment: `Client Distribution for ${stage}`,
         originConfigs: [
           {
             s3OriginSource: {
@@ -33,6 +49,17 @@ export class ClientStack extends Stack {
           },
         ],
         defaultRootObject: "index.html",
+        viewerCertificate: ViewerCertificate.fromAcmCertificate(sslCert, {
+          aliases: [domainName],
+        }),
+        errorConfigurations: [
+          {
+            errorCode: 403,
+            errorCachingMinTtl: 10,
+            responsePagePath: "/index.html",
+            responseCode: 200,
+          },
+        ],
       }
     );
 
@@ -45,7 +72,7 @@ export class ClientStack extends Stack {
 
     new ARecord(this, "ClientARecord", {
       zone: hostedZone,
-      recordName: "thegoodstr.com",
+      recordName: domainName,
       target: RecordTarget.fromAlias(new CloudFrontTarget(clientDistribution)),
     });
   }
