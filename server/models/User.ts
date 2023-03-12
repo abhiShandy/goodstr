@@ -1,7 +1,7 @@
 import MongoClient from "./utils/mongo";
 import nanoid from "./utils/nanoid";
 
-export class User {
+class User {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -29,3 +29,5 @@ export class User {
     }
   }
 }
+
+export default User;

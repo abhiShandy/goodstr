@@ -1,7 +1,6 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { Product } from "../models/Product";
-import nanoid from "../models/utils/nanoid";
+import { Image, Product } from "../models";
 
 const s3Client = new S3Client({});
 
@@ -44,12 +43,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   const newProduct = new Product({
     name,
     description,
-    images: [
-      {
-        s3Key: "img_" + nanoid() + "." + images[0].type.split("/")[1],
-        type: images[0].type,
-      },
-    ],
+    images: [new Image(images[0].type)],
     price,
     seller: {
       id: "123",

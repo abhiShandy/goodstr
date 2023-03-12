@@ -1,12 +1,8 @@
 import nanoid from "./utils/nanoid";
 import MongoClient from "./utils/mongo";
+import Image from "./Image";
 
-export type Image = {
-  s3Key: string;
-  type: string;
-};
-
-export class Product {
+class Product {
   id: string;
   name: string;
   description: string;
@@ -65,3 +61,5 @@ export class Product {
     }
   }
 }
+
+export default Product;
