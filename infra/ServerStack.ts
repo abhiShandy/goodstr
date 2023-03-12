@@ -1,4 +1,4 @@
-import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
@@ -18,7 +18,7 @@ export class ServerStack extends Stack {
     const secret = Secret.fromSecretNameV2(this, "MONGO_URL", "MONGO_URL");
 
     const createProductFn = new NodejsFunction(this, "CreateProduct", {
-      entry: join(__dirname, "../functions/createProduct.ts"),
+      entry: join(__dirname, "../server/functions/createProduct.ts"),
       environment: {
         BUCKET: bucket.bucketName,
         SECRETS_ARN: secret.secretArn,

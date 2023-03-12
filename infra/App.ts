@@ -1,5 +1,6 @@
 import { App } from "aws-cdk-lib";
-import { ServerStack } from "./server-stack";
+import { ServerStack } from "./ServerStack";
+import { ClientStack } from "./ClientStack";
 
 const app = new App();
 new ServerStack(app, "ServerStack", {
@@ -11,3 +12,5 @@ new ServerStack(app, "ServerStack", {
     Project: "TheGoodStr",
   },
 });
+
+new ClientStack(app, "ClientStack", {});
