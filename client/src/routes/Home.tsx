@@ -1,12 +1,11 @@
 import ProductList, { Product } from "../lib/ProductList";
-import { faker } from "@faker-js/faker";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 type ListProductResponse = {
   id: number;
   name: string;
-  price: string;
+  price: number;
   images: { url: string }[];
 };
 

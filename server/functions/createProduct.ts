@@ -58,7 +58,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       name,
       description,
       images: [newImage],
-      price,
+      price: Number(price),
       seller: {
         id: "123",
         name: "John Doe",

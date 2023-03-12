@@ -20,7 +20,7 @@ export const CreateProduct = () => {
               data: base64str,
             },
           ],
-          price: event.price,
+          price: Number(event.price),
         });
       };
       reader.readAsDataURL(event.image[0]);

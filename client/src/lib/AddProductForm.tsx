@@ -128,13 +128,12 @@ export default function AddProductForm({
                         type="file"
                         accept="image/*"
                         className="sr-only"
+                        size={1024 * 1024}
                       />
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs text-gray-500">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
+                  <p className="text-xs text-gray-500">PNG, JPEG up to 1 MB</p>
                 </div>
               </div>
             </div>
