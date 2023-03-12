@@ -1,0 +1,39 @@
+name: Server Infra
+
+on:
+  push:
+    paths:
+      - "server/**"
+      - "infra/ServerStack.ts"
+      - ".github/workflows/server-infra.yml"
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+concurrency: server-infra
+
+jobs:
+  cdk-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install server dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::316516756945:role/github-ci
+          role-session-name: main-branch-deploy
+
+      - name: CDK Deploy
+        run: npx cdk deploy ServerStack --require-approval never

@@ -1,12 +1,17 @@
-name: AWS CDK Deploy
+name: Client Infra
 
-on: push
+on:
+  push:
+    paths:
+      - "client/**"
+      - "infra/ClientStack.ts"
+      - ".github/workflows/client-infra.yml"
 
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
 
-concurrency: server-cdk-deploy
+concurrency: client-infra
 
 jobs:
   cdk-deploy:
@@ -27,10 +32,6 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Install server dependencies
-        working-directory: ./server
-        run: npm ci
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -39,4 +40,4 @@ jobs:
           role-session-name: main-branch-deploy
 
       - name: CDK Deploy
-        run: npx cdk deploy --all --require-approval never
+        run: npx cdk deploy ClientStack --require-approval never
