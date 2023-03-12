@@ -4,8 +4,10 @@ name: "Chromatic"
 on:
   push:
     paths:
-      - "client/**"
+      - "client/src/lib/**"
       - ".github/workflows/chromatic.yml"
+
+concurrency: chromatic
 
 # List of jobs
 jobs:
