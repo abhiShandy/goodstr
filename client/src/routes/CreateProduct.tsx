@@ -1,8 +1,8 @@
 import { SubmitHandler } from "react-hook-form";
-import AddProductForm, { AddProduct } from "./AddProductForm";
+import AddProductForm, { AddProduct } from "../lib/AddProductForm";
 import axios from "axios";
 
-function App() {
+export const CreateProduct = () => {
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
     try {
       const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
@@ -34,6 +34,4 @@ function App() {
       <AddProductForm onSubmit={onSubmit} />
     </div>
   );
-}
-
-export default App;
+};
