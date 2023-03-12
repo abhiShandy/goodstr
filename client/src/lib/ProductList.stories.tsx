@@ -60,3 +60,14 @@ Default.args = {
     // More products...
   ],
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  products: [],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+  products: [],
+};
