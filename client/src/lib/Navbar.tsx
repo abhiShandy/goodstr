@@ -7,7 +7,7 @@ function classNames(...classes: string[]) {
 }
 
 type NavbarProps = {
-  currentPage: "home" | "add-product";
+  currentPage?: "home" | "add-product";
 };
 
 export const Navbar = ({ currentPage }: NavbarProps) => {

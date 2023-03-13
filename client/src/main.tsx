@@ -4,6 +4,7 @@ import { Home } from "./routes/Home";
 import { CreateProduct } from "./routes/CreateProduct";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ProductPage as Product } from "./routes/Product";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     path: "/products/new",
     element: <CreateProduct />,
   },
+  {
+    path: "/products/:productId",
+    element: <Product />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

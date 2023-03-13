@@ -46,6 +46,16 @@ export class ServerStack extends Stack {
 
     secret.grantRead(listProductFn);
 
+    const retrieveProductFn = new NodejsFunction(this, "RetrieveProduct", {
+      entry: join(__dirname, "../server/functions/retrieveProduct.ts"),
+      environment: {
+        BUCKET: bucket.bucketName,
+        SECRETS_ARN: secret.secretArn,
+      },
+    });
+
+    secret.grantRead(retrieveProductFn);
+
     const restApi = new RestApi(this, "RestApi", {
       restApiName: `${stage || "dev"}-thegoodstr-api`,
       deployOptions: {
@@ -63,5 +73,11 @@ export class ServerStack extends Stack {
 
     productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
     productsEndpoint.addMethod("GET", new LambdaIntegration(listProductFn));
+
+    const productsIdEndpoint = productsEndpoint.addResource("{id}");
+    productsIdEndpoint.addMethod(
+      "GET",
+      new LambdaIntegration(retrieveProductFn)
+    );
   }
 }

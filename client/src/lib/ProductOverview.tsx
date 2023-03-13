@@ -1,13 +1,19 @@
-type Product = {
+export type Product = {
   name: string;
-  href: string;
-  price: string;
+  price: number;
   description: string;
   imageSrc: string;
   imageAlt: string;
 };
 
-export default function ProductOverview({ product }: { product: Product }) {
+export default function ProductOverview({
+  product,
+}: {
+  product: Product | null;
+}) {
+  if (!product)
+    return <div className="text-center mt-16">No product found</div>;
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">

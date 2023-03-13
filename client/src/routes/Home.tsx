@@ -24,7 +24,6 @@ export const Home = () => {
           products.push({
             id: d.id,
             name: d.name,
-            href: "#",
             imageSrc: d.images[0].url,
             price: d.price,
             imageAlt: d.name,

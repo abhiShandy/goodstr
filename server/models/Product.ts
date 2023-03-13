@@ -92,6 +92,21 @@ class Product {
       return [];
     }
   }
+
+  static async retrieve(id: string) {
+    try {
+      const mongoClient = await MongoClient();
+      const res = await mongoClient
+        .db("thegoodstr")
+        .collection<ProductFields>("products")
+        .findOne({ id });
+      console.log("Found product: ", res);
+      return res;
+    } catch (err) {
+      console.error("Error finding product: ", err);
+      return null;
+    }
+  }
 }
 
 export default Product;

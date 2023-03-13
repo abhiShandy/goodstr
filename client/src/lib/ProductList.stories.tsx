@@ -20,7 +20,6 @@ Default.args = {
     {
       id: 1,
       name: "Earthen Bottle",
-      href: "#",
       price: 48000,
       imageSrc:
         "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
@@ -30,7 +29,6 @@ Default.args = {
     {
       id: 2,
       name: "Nomad Tumbler",
-      href: "#",
       price: 35000,
       imageSrc:
         "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
@@ -40,7 +38,6 @@ Default.args = {
     {
       id: 3,
       name: "Focus Paper Refill",
-      href: "#",
       price: 89000,
       imageSrc:
         "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
@@ -50,7 +47,6 @@ Default.args = {
     {
       id: 4,
       name: "Machined Mechanical Pencil",
-      href: "#",
       price: 35000,
       imageSrc:
         "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
