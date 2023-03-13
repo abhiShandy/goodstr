@@ -52,6 +52,7 @@ export class ServerStack extends Stack {
         BUCKET: bucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
+      memorySize: 256,
     });
 
     secret.grantRead(retrieveProductFn);
