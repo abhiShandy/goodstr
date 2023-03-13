@@ -32,7 +32,7 @@ export default function ProductOverview({
 
             <div className="flex items-center">
               <p className="text-lg text-gray-900 sm:text-xl">
-                {product.price}
+                {product.price} sats
               </p>
             </div>
 
