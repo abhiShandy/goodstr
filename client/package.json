@@ -5,6 +5,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:demo": "tsc && vite build --mode demo",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
