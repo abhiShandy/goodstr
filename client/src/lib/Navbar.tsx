@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, WalletIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FaGithub } from "react-icons/fa";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -73,6 +74,15 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                   <span className="sr-only">Manage wallet</span>
                   <WalletIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+
+                <a
+                  className="rounded-full bg-white p-1 mx-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  href="https://github.com/abhishandy/thegoodstr"
+                  target="_blank"
+                >
+                  <span className="sr-only">Open Github</span>
+                  <FaGithub className="h-6 w-6" aria-hidden="true" />
+                </a>
 
                 {/* Profile dropdown */}
                 {/* <Menu as="div" className="relative ml-3">
@@ -196,7 +206,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               </Disclosure.Button> */}
             </div>
             <div className="border-t border-gray-200 pt-4 pb-3">
-              <div className="flex items-center px-4">
+              <div className="flex justify-end px-4">
                 {/* <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
@@ -214,11 +224,20 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                 </div> */}
                 <button
                   type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  className="flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 >
                   <span className="sr-only">Manage wallet</span>
                   <WalletIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+
+                <a
+                  className="flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  href="https://github.com/abhishandy/thegoodstr"
+                  target="_blank"
+                >
+                  <span className="sr-only">Open Github</span>
+                  <FaGithub className="h-6 w-6" aria-hidden="true" />
+                </a>
               </div>
               {/* <div className="mt-3 space-y-1">
                 <Disclosure.Button
