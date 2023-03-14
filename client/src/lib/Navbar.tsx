@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, WalletIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -66,13 +66,13 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                {/* <button
+                <button
                   type="button"
                   className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
+                  <span className="sr-only">Manage wallet</span>
+                  <WalletIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
 
                 {/* Profile dropdown */}
                 {/* <Menu as="div" className="relative ml-3">
@@ -195,9 +195,9 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                 Calendar
               </Disclosure.Button> */}
             </div>
-            {/* <div className="border-t border-gray-200 pt-4 pb-3">
+            <div className="border-t border-gray-200 pt-4 pb-3">
               <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
+                {/* <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -211,16 +211,16 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                   <div className="text-sm font-medium text-gray-500">
                     tom@example.com
                   </div>
-                </div>
+                </div> */}
                 <button
                   type="button"
                   className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <span className="sr-only">Manage wallet</span>
+                  <WalletIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
-              <div className="mt-3 space-y-1">
+              {/* <div className="mt-3 space-y-1">
                 <Disclosure.Button
                   as="a"
                   href="#"
@@ -242,8 +242,8 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                 >
                   Sign out
                 </Disclosure.Button>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
           </Disclosure.Panel>
         </>
       )}
