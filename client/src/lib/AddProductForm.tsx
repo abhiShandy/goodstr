@@ -9,8 +9,10 @@ export type AddProduct = {
 
 export default function AddProductForm({
   onSubmit,
+  isLoading = false,
 }: {
   onSubmit: SubmitHandler<AddProduct>;
+  isLoading: boolean;
 }) {
   const { register, handleSubmit } = useForm<AddProduct>();
 
@@ -37,7 +39,7 @@ export default function AddProductForm({
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
-                  {...register("name", { required: true })}
+                  {...register("name", { required: true, disabled: isLoading })}
                   type="text"
                   id="name"
                   autoComplete="name"
@@ -55,7 +57,10 @@ export default function AddProductForm({
               </label>
               <div className="mt-2">
                 <textarea
-                  {...register("description", { required: true })}
+                  {...register("description", {
+                    required: true,
+                    disabled: isLoading,
+                  })}
                   id="description"
                   rows={3}
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:py-1.5 sm:text-sm sm:leading-6"
@@ -98,7 +103,10 @@ export default function AddProductForm({
                       <span>Upload an image</span>
                       <input
                         id="image"
-                        {...register("image", { required: true })}
+                        {...register("image", {
+                          required: true,
+                          disabled: isLoading,
+                        })}
                         type="file"
                         accept="image/*"
                         className="sr-only"
@@ -122,7 +130,10 @@ export default function AddProductForm({
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
                   type="number"
-                  {...register("price", { required: true })}
+                  {...register("price", {
+                    required: true,
+                    disabled: isLoading,
+                  })}
                   id="price"
                   autoComplete="price"
                   className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
@@ -140,9 +151,13 @@ export default function AddProductForm({
       <div className="pt-5">
         <div className="flex justify-end">
           <input
-            value={"Add"}
+            value={isLoading ? "Adding ..." : "Add"}
+            disabled={isLoading}
             type="submit"
-            className="ml-3 inline-flex justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+            className={
+              "ml-3 inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600" +
+              (isLoading ? " bg-gray-400" : " bg-gray-600 hover:bg-gray-500")
+            }
           />
         </div>
       </div>

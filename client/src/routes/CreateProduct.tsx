@@ -47,7 +47,7 @@ export const CreateProduct = () => {
     <>
       <Navbar currentPage="add-product" />
       <div className="max-w-lg mx-auto mt-8 px-4">
-        <AddProductForm onSubmit={onSubmit} />
+        <AddProductForm onSubmit={onSubmit} isLoading={mutation.isLoading} />
       </div>
       {mutation.isError && (
         <div className="text-red-500 text-center">error creating product</div>
