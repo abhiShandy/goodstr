@@ -19,7 +19,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center font-bold text-lg font-mono">
-                  TheGoodStr
+                  <a href="/">TheGoodStr</a>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-gray-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
