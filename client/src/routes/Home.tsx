@@ -1,7 +1,8 @@
 import ProductList, { Product } from "../lib/ProductList";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { Navbar } from "../lib/Navbar";
+import { useQuery } from "react-query";
+import { LoadingGrid } from "../lib/LoadingGrid";
 
 type ListProductResponse = {
   id: number;
@@ -11,33 +12,46 @@ type ListProductResponse = {
 };
 
 export const Home = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get<ListProductResponse[]>(import.meta.env.VITE_BASE_URL + "/products")
-      .then(({ data }) => {
-        const products: Product[] = [];
-        data.forEach((d) => {
-          products.push({
-            id: d.id,
-            name: d.name,
-            imageSrc: d.images[0].url,
-            price: d.price,
-            imageAlt: d.name,
-          });
-        });
-        setProducts(products);
+  const fetchProducts = async (): Promise<Product[]> => {
+    const response = await axios.get<ListProductResponse[]>(
+      import.meta.env.VITE_BASE_URL + "/products"
+    );
+    const products: Product[] = [];
+    response.data.forEach((d) => {
+      products.push({
+        id: d.id,
+        name: d.name,
+        imageSrc: d.images[0].url,
+        price: d.price,
+        imageAlt: d.name,
       });
-    setLoading(false);
-  }, []);
+    });
+    return products;
+  };
 
-  return (
-    <>
-      <Navbar currentPage="home" />
-      <ProductList products={products} isLoading={loading} />
-    </>
-  );
+  const {
+    data: products,
+    error,
+    isLoading,
+  } = useQuery("listProducts", fetchProducts);
+
+  if (isLoading)
+    return (
+      <>
+        <Navbar currentPage="home" />
+        <LoadingGrid centered />
+      </>
+    );
+
+  if (error) return <div>Something went wrong</div>;
+
+  if (products)
+    return (
+      <>
+        <Navbar currentPage="home" />
+        <ProductList products={products} />
+      </>
+    );
+
+  return <div>Something went wrong</div>;
 };

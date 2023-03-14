@@ -1,5 +1,3 @@
-import { LoadingGrid } from "./LoadingGrid";
-
 export type Product = {
   id: number;
   name: string;
@@ -8,32 +6,18 @@ export type Product = {
   imageAlt: string;
 };
 
-export default function ProductList({
-  products,
-  isLoading = false,
-}: {
-  products: Product[];
-  isLoading: boolean;
-}) {
+export default function ProductList({ products }: { products: Product[] }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
 
-        {isLoading && (
-          <div className="text-center">
-            <LoadingGrid />
-            <p className="text-sm">Loading products</p>
-          </div>
-        )}
-
-        {products.length === 0 && !isLoading && (
+        {products.length === 0 && (
           <div className="text-center text-lg">No products found!</div>
         )}
 
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.length > 0 &&
-            !isLoading &&
             products.map((product) => (
               <a
                 key={product.id}

@@ -5,6 +5,7 @@ import { CreateProduct } from "./routes/CreateProduct";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ProductPage as Product } from "./routes/Product";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,15 @@ const router = createBrowserRouter([
   {
     path: "/products/:productId",
     element: <Product />,
-  }
+  },
 ]);
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );

@@ -9,6 +9,13 @@ const meta: ComponentMeta<typeof LoadingGrid> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof LoadingGrid> = () => <LoadingGrid />;
+const Template: ComponentStory<typeof LoadingGrid> = (args) => (
+  <LoadingGrid {...args} />
+);
 
 export const Default = Template.bind({});
+
+export const Centered = Template.bind({});
+Centered.args = {
+  centered: true,
+};

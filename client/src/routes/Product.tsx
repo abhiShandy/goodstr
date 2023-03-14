@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { LoadingGrid } from "../lib/LoadingGrid";
 import { Navbar } from "../lib/Navbar";
 import ProductOverview, { Product } from "../lib/ProductOverview";
 
@@ -12,7 +14,7 @@ interface RetrieveProductResponse {
 }
 
 export const ProductPage = () => {
-  const [product, setProduct] = useState<Product | null>(null);
+  // const [product, setProduct] = useState<Product | null>(null);
 
   const productId = window.location.pathname.split("/")[2];
 
@@ -20,23 +22,34 @@ export const ProductPage = () => {
     const PRODUCTS_URL =
       import.meta.env.VITE_BASE_URL + "/products/" + productId;
     const response = await axios.get<RetrieveProductResponse>(PRODUCTS_URL);
-    setProduct({
+    return {
       name: response.data.name,
       price: response.data.price,
       description: response.data.description,
       imageSrc: response.data.images[0].src,
       imageAlt: response.data.name,
-    });
+    };
   };
 
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  const { data: product, error, isLoading } = useQuery(productId, fetchProduct);
 
-  return (
-    <>
-      <Navbar />
-      <ProductOverview product={product} />
-    </>
-  );
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <LoadingGrid centered />
+      </>
+    );
+
+  if (error) return <div>Something went wrong</div>;
+
+  if (product)
+    return (
+      <>
+        <Navbar />
+        <ProductOverview product={product} />
+      </>
+    );
+
+  return <div>Something went wrong</div>;
 };
