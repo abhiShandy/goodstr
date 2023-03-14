@@ -83,7 +83,7 @@ class Product {
       const res = await mongoClient
         .db("thegoodstr")
         .collection<ProductFields>("products")
-        .find({}, { limit: 12 })
+        .find({}, { limit: 12, sort: { createdAt: -1 } })
         .toArray();
       console.log("Found products: ", res.length);
       return res;
