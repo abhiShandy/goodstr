@@ -1,7 +1,7 @@
 import { SubmitHandler } from "react-hook-form";
-import AddProductForm, { AddProduct } from "../lib/AddProductForm";
+import AddProductForm, { AddProduct } from "../lib/molecules/AddProductForm";
 import axios from "axios";
-import { Navbar } from "../lib/Navbar";
+import { Navbar } from "../lib/molecules/Navbar";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 

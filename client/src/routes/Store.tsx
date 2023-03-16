@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { Navbar } from "../lib/Navbar";
-import ProductList from "../lib/ProductList";
-import StoreHeader from "../lib/StoreHeader";
+import { Navbar } from "../lib/molecules/Navbar";
+import ProductList from "../lib/molecules/ProductList";
+import StoreHeader from "../lib/molecules/StoreHeader";
 import { fetchStoreProducts } from "./api/products";
 import { fetchStore } from "./api/stores";
 

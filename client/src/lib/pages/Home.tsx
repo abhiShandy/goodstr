@@ -1,6 +1,6 @@
-import { LoadingGrid } from "../LoadingGrid";
-import { Navbar } from "../Navbar";
-import ProductList, { Product } from "../ProductList";
+import { LoadingGrid } from "../molecules/LoadingGrid";
+import { Navbar } from "../molecules/Navbar";
+import ProductList, { Product } from "../molecules/ProductList";
 
 export type HomeProps = {
   products?: Product[];

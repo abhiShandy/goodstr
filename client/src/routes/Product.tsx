@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { LoadingGrid } from "../lib/LoadingGrid";
-import { Navbar } from "../lib/Navbar";
-import ProductOverview, { Product } from "../lib/ProductOverview";
+import { LoadingGrid } from "../lib/molecules/LoadingGrid";
+import { Navbar } from "../lib/molecules/Navbar";
+import ProductOverview, { Product } from "../lib/molecules/ProductOverview";
 
 interface RetrieveProductResponse {
   id: string;
