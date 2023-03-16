@@ -7,6 +7,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       body: JSON.stringify({
         message: "No store ID provided",
       }),
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     };
   }
 
@@ -17,5 +20,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       name: "FunStr",
       description: "A store for fun things",
     }),
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   };
 };

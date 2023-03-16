@@ -1,36 +1,27 @@
-import axios from "axios";
 import { useQuery } from "react-query";
-
-type RetrieveStoreResponse = {
-  id: string;
-  name: string;
-  description: string;
-};
+import { Navbar } from "../lib/Navbar";
+import ProductList from "../lib/ProductList";
+import StoreHeader from "../lib/StoreHeader";
+import { fetchStoreProducts } from "./api/products";
+import { fetchStore } from "./api/stores";
 
 export const Store = () => {
   const storeId = window.location.pathname.split("/")[2];
 
-  const fetchStore = async () => {
-    const STORES_URL = import.meta.env.VITE_BASE_URL + "/stores/" + storeId;
-    const response = await axios.get<RetrieveStoreResponse>(STORES_URL);
-    return {
-      name: response.data.name,
-      description: response.data.description,
-    };
-  };
+  const { data: store } = useQuery(storeId, () => fetchStore(storeId));
 
-  const { data: store, error, isLoading } = useQuery(storeId, fetchStore);
+  const { data: products } = useQuery(
+    `${storeId}/products`,
+    fetchStoreProducts
+  );
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Something went wrong</div>;
-
-  if (store)
-    return (
-      <div>
-        <h1>Store</h1>
-      </div>
-    );
-
-  return <div>Something went wrong</div>;
+  return (
+    <>
+      <Navbar />
+      {store && (
+        <StoreHeader name={store.name} description={store.description} />
+      )}
+      {products && <ProductList products={products} />}
+    </>
+  );
 };
