@@ -1,7 +1,7 @@
 import ProductList from "./ProductList";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { products } from "./fake";
+import { products } from "../fake";
 
 const meta: ComponentMeta<typeof ProductList> = {
   title: "ProductList",
