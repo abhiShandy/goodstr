@@ -17,8 +17,8 @@ Home.args = {
   currentPage: "home",
 };
 
-export const AddProduct = Template.bind({});
+export const Sell = Template.bind({});
 
-AddProduct.args = {
-  currentPage: "add-product",
+Sell.args = {
+  currentPage: "sell",
 };

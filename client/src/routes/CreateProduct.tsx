@@ -45,7 +45,7 @@ export const CreateProduct = () => {
 
   return (
     <>
-      <Navbar currentPage="add-product" />
+      <Navbar currentPage="sell" />
       <div className="max-w-lg mx-auto mt-8 px-4">
         <AddProductForm onSubmit={onSubmit} isLoading={mutation.isLoading} />
       </div>

@@ -8,7 +8,7 @@ function classNames(...classes: string[]) {
 }
 
 type NavbarProps = {
-  currentPage?: "home" | "add-product";
+  currentPage?: "home" | "sell";
 };
 
 export const Navbar = ({ currentPage }: NavbarProps) => {
@@ -33,18 +33,18 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                         : " border-transparent hover:border-gray-300 hover:text-gray-700")
                     }
                   >
-                    Home
+                    Discover
                   </a>
                   <a
-                    href="/add"
+                    href="/sell"
                     className={
                       "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
-                      (currentPage === "add-product"
+                      (currentPage === "sell"
                         ? " border-gray-500"
                         : " border-transparent hover:border-gray-300 hover:text-gray-700")
                     }
                   >
-                    Add Product
+                    Sell
                   </a>
                   {/* <a
                     href="#"
@@ -176,19 +176,19 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                     : " border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700")
                 }
               >
-                Home
+                Discover
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
-                href="/add"
+                href="/sell"
                 className={
                   "block border-l-4 py-2 pl-3 pr-4 text-base font-medium" +
-                  (currentPage === "add-product"
+                  (currentPage === "sell"
                     ? " border-gray-500 bg-gray-50 text-gray-700"
                     : " border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700")
                 }
               >
-                Add Product
+                Sell
               </Disclosure.Button>
               {/* <Disclosure.Button
                 as="a"
