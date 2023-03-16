@@ -3,11 +3,13 @@ import nanoid from "./utils/nanoid";
 
 class User {
   id: string;
+  store: { id: string };
   createdAt: Date;
   updatedAt: Date;
 
   constructor() {
     this.id = "user_" + nanoid();
+    this.store.id = nanoid(6);
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
