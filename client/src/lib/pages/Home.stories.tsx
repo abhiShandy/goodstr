@@ -13,3 +13,18 @@ export const Default = Template.bind({});
 Default.args = {
   products,
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+};
+
+export const Error = Template.bind({});
+Error.args = {
+  error: "Something went wrong",
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  products: [],
+};
