@@ -1,7 +1,7 @@
 import StoreHeader from "./StoreHeader";
-import { faker } from "@faker-js/faker";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { store } from "../fake";
 
 const meta: ComponentMeta<typeof StoreHeader> = {
   title: "StoreHeader",
@@ -16,6 +16,5 @@ const Template: ComponentStory<typeof StoreHeader> = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  name: faker.company.name(),
-  description: faker.lorem.paragraph(),
+  store,
 };

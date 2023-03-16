@@ -1,4 +1,6 @@
-import { Product } from "../ProductList";
+import { Product } from "../molecules/ProductList";
+import { Store } from "../molecules/StoreHeader";
+import { faker } from "@faker-js/faker";
 
 export const products: Product[] = [
   {
@@ -39,3 +41,8 @@ export const products: Product[] = [
   },
   // More products...
 ];
+
+export const store: Store = {
+  name: faker.company.name(),
+  description: faker.lorem.paragraph(),
+};
