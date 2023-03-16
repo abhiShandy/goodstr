@@ -1,3 +1,4 @@
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { LoadingGrid } from "../molecules/LoadingGrid";
 import { Navbar } from "../molecules/Navbar";
 import ProductList, { Product } from "../molecules/ProductList";
@@ -6,6 +7,20 @@ export type HomeProps = {
   products?: Product[];
   error: unknown;
   isLoading: boolean;
+};
+
+const SomethingWentWrong = () => {
+  return (
+    <>
+      <Navbar currentPage="home" />
+      <div className="mt-16 flex justify-center text-red-600">
+        <span>
+          <ExclamationTriangleIcon className="h-6  mr-2" />
+        </span>
+        <span>Something went wrong</span>
+      </div>
+    </>
+  );
 };
 
 export const Home = (props: HomeProps) => {
@@ -17,9 +32,9 @@ export const Home = (props: HomeProps) => {
       </>
     );
 
-  if (props.error) return <div>Something went wrong</div>;
+  if (props.error) return <SomethingWentWrong />;
 
-  if (props.products)
+  if (props.products && props.products.length > 0)
     return (
       <>
         <Navbar currentPage="home" />
@@ -34,5 +49,5 @@ export const Home = (props: HomeProps) => {
       </>
     );
 
-  return <div>Something went wrong</div>;
+  return <SomethingWentWrong />;
 };
