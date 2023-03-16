@@ -24,6 +24,7 @@ export class ServerStack extends Stack {
         )
       : Secret.fromSecretNameV2(this, `MONGO_URL`, `MONGO_URL`);
 
+    // === Lambdas ===
     const createProductFn = new NodejsFunction(this, "CreateProduct", {
       entry: join(__dirname, "../server/functions/createProduct.ts"),
       environment: {
@@ -57,6 +58,11 @@ export class ServerStack extends Stack {
 
     secret.grantRead(retrieveProductFn);
 
+    const retrieveStoreFn = new NodejsFunction(this, "RetrieveStore", {
+      entry: join(__dirname, "../server/functions/retrieveStore.ts"),
+    });
+
+    // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
       restApiName: `${stage || "dev"}-thegoodstr-api`,
       deployOptions: {
@@ -80,5 +86,10 @@ export class ServerStack extends Stack {
       "GET",
       new LambdaIntegration(retrieveProductFn)
     );
+
+    const storeEndpoint = restApi.root.addResource("stores");
+    const storeIdEndpoint = storeEndpoint.addResource("{id}");
+
+    storeIdEndpoint.addMethod("GET", new LambdaIntegration(retrieveStoreFn));
   }
 }
