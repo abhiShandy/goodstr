@@ -8,9 +8,8 @@ export type ProductFields = {
   description: string;
   price: number;
   images: Image[];
-  seller: {
+  store: {
     id: string;
-    name: string;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -22,9 +21,8 @@ class Product {
   description: string;
   price: number;
   images: Image[];
-  seller: {
+  store: {
     id: string;
-    name: string;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -34,23 +32,20 @@ class Product {
     description,
     price,
     images,
-    seller,
+    store,
   }: {
     name: string;
     description: string;
     price: number;
     images: Image[];
-    seller: {
-      id: string;
-      name: string;
-    };
+    store: { id: string };
   }) {
     this.id = "prod_" + nanoid();
     this.name = name;
     this.description = description;
     this.price = price;
     this.images = images;
-    this.seller = seller;
+    this.store = store;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -67,7 +62,7 @@ class Product {
           description: this.description,
           price: this.price,
           images: this.images,
-          seller: this.seller,
+          store: this.store,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         });
