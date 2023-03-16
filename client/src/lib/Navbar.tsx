@@ -36,7 +36,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                     Home
                   </a>
                   <a
-                    href="/products/new"
+                    href="/add"
                     className={
                       "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
                       (currentPage === "add-product"
@@ -180,7 +180,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
-                href="/products/new"
+                href="/add"
                 className={
                   "block border-l-4 py-2 pl-3 pr-4 text-base font-medium" +
                   (currentPage === "add-product"
