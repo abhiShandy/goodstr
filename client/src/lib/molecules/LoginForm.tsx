@@ -38,10 +38,12 @@ export default function Example() {
                     type="nostrkey"
                     autoComplete="nostrkey"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    priv key for full access, pub key for read-only access
+                  <p className="text-xs text-gray-500 mt-1 ml-2">
+                    private key for full access
+                    <br />
+                    public key for read-only access
                   </p>
                 </div>
               </div>
@@ -55,12 +57,12 @@ export default function Example() {
                 </button>
               </div>
             </form>
-            <p className="text-center mt-4 text-sm">OR</p>
+            {/* <p className="text-center mt-4 text-sm">OR</p>
             <div className="mt-4">
               <button className="flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
                 Generate
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
