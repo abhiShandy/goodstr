@@ -1,3 +1,5 @@
+import { BuyNow } from "./BuyNow";
+
 export type Product = {
   name: string;
   price: number;
@@ -56,16 +58,9 @@ export default function ProductOverview({
         {/* Product form */}
         <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
           <section aria-labelledby="options-heading">
-            <form>
-              <div className="mt-4">
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                >
-                  Buy now
-                </button>
-              </div>
-            </form>
+            <div className="mt-4">
+              <BuyNow price={product.price} invoice="placeholderlninvoice" />
+            </div>
           </section>
         </div>
       </div>
