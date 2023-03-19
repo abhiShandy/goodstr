@@ -1,17 +1,25 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, WalletIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  GlobeAltIcon,
+  KeyIcon,
+  WalletIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { FaGithub } from "react-icons/fa";
+import { BiBitcoin } from "react-icons/bi";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 type NavbarProps = {
-  currentPage?: "discover" | "sell";
+  currentPage?: "discover" | "sell" | "login";
+  isLoggedIn?: boolean;
 };
 
-export const Navbar = ({ currentPage }: NavbarProps) => {
+export const Navbar = ({ currentPage, isLoggedIn }: NavbarProps) => {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -33,19 +41,37 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                         : " border-transparent hover:border-gray-300 hover:text-gray-700")
                     }
                   >
+                    <GlobeAltIcon className="h-5 w-5 mr-2" />
                     Discover
                   </a>
-                  <a
-                    href="/sell"
-                    className={
-                      "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
-                      (currentPage === "sell"
-                        ? " border-gray-500"
-                        : " border-transparent hover:border-gray-300 hover:text-gray-700")
-                    }
-                  >
-                    Sell
-                  </a>
+                  {isLoggedIn && (
+                    <a
+                      href="/sell"
+                      className={
+                        "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
+                        (currentPage === "sell"
+                          ? " border-gray-500"
+                          : " border-transparent hover:border-gray-300 hover:text-gray-700")
+                      }
+                    >
+                      <BiBitcoin className="w-5 h-5 mr-2" />
+                      Sell
+                    </a>
+                  )}
+                  {!isLoggedIn && (
+                    <a
+                      href="/login"
+                      className={
+                        "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
+                        (currentPage === "login"
+                          ? " border-gray-500"
+                          : " border-transparent hover:border-gray-300 hover:text-gray-700")
+                      }
+                    >
+                      <KeyIcon className="h-5 w-5 mr-2" />
+                      Login
+                    </a>
+                  )}
                   {/* <a
                     href="#"
                     className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"

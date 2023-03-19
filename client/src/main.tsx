@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home, Store, CreateProduct, Product } from "./routes";
+import { Home, Store, CreateProduct, Product, Login } from "./routes";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -21,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/products/:productId",
     element: <Product />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "*",
+    element: <div>404</div>,
   },
 ]);
 
