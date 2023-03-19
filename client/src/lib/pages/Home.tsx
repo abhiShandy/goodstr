@@ -12,7 +12,7 @@ export type HomeProps = {
 const SomethingWentWrong = () => {
   return (
     <>
-      <Navbar currentPage="home" />
+      <Navbar currentPage="discover" />
       <div className="mt-16 flex justify-center text-red-600">
         <span>
           <ExclamationTriangleIcon className="h-6  mr-2" />
@@ -27,7 +27,7 @@ export const Home = (props: HomeProps) => {
   if (props.isLoading)
     return (
       <>
-        <Navbar currentPage="home" />
+        <Navbar currentPage="discover" />
         <LoadingGrid centered />
       </>
     );
@@ -37,7 +37,7 @@ export const Home = (props: HomeProps) => {
   if (props.products && props.products.length > 0)
     return (
       <>
-        <Navbar currentPage="home" />
+        <Navbar currentPage="discover" />
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-8">
           <div className="border-b border-gray-200 pb-5">
             <h3 className="text-base font-semibold leading-6 text-gray-900">

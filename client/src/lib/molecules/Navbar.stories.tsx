@@ -11,10 +11,10 @@ export default meta;
 
 const Template: ComponentStory<typeof Navbar> = (args) => <Navbar {...args} />;
 
-export const Home = Template.bind({});
+export const Discover = Template.bind({});
 
-Home.args = {
-  currentPage: "home",
+Discover.args = {
+  currentPage: "discover",
 };
 
 export const Sell = Template.bind({});
