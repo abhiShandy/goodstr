@@ -1,10 +1,11 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 import { join } from "path";
+import NodejsFunction from "./lib/NodejsFunction";
 
 export class ServerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -42,7 +43,6 @@ export class ServerStack extends Stack {
         BUCKET: bucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
-      memorySize: 256,
     });
 
     secret.grantRead(listProductFn);
@@ -53,7 +53,6 @@ export class ServerStack extends Stack {
         BUCKET: bucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
-      memorySize: 256,
     });
 
     secret.grantRead(retrieveProductFn);
