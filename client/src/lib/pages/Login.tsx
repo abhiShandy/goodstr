@@ -1,12 +1,17 @@
-import LoginForm from "../molecules/LoginForm";
+import { SubmitHandler } from "react-hook-form";
+import LoginForm, { LoginFormValues } from "../molecules/LoginForm";
 import { Navbar } from "../molecules/Navbar";
 
-const Login = () => {
+export type LoginProps = {
+  onSubmit: SubmitHandler<LoginFormValues>;
+};
+
+const Login = (props: LoginProps) => {
   return (
     <>
       <Navbar currentPage="login" />
       <div className="bg-gray-200">
-        <LoginForm />
+        <LoginForm onSubmit={props.onSubmit} />
       </div>
     </>
   );

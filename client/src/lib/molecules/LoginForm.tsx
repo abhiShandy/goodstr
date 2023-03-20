@@ -1,4 +1,15 @@
-export default function Example() {
+import { SubmitHandler, useForm } from "react-hook-form";
+
+export type LoginFormProps = {
+  onSubmit: SubmitHandler<LoginFormValues>;
+};
+
+export type LoginFormValues = {
+  nostrkey: string;
+};
+
+export default function LoginForm(props: LoginFormProps) {
+  const { handleSubmit, register } = useForm<LoginFormValues>();
   return (
     <>
       {/*
@@ -23,7 +34,7 @@ export default function Example() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit(props.onSubmit)}>
               <div>
                 <label
                   htmlFor="nostrkey"
@@ -33,11 +44,8 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    {...(register("nostrkey"), { required: true })}
                     id="nostrkey"
-                    name="nostrkey"
-                    type="nostrkey"
-                    autoComplete="nostrkey"
-                    required
                     className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                   />
                   <p className="text-xs text-gray-500 mt-1 ml-2">
