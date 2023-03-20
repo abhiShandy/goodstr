@@ -40,7 +40,7 @@ class Product {
     this.title = title;
     this.description = description;
     this.images = images;
-    this.seller.npub = npub;
+    this.seller = { npub };
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
