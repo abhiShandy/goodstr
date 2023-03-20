@@ -15,6 +15,8 @@ const meta: ComponentMeta<typeof LoginForm> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof LoginForm> = () => <LoginForm />;
+const Template: ComponentStory<typeof LoginForm> = (args) => (
+  <LoginForm {...args} />
+);
 
 export const Default = Template.bind({});

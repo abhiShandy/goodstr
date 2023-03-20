@@ -3,9 +3,9 @@ import { Product } from "../models";
 
 interface RetrieveProductResponse {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  price: number;
+  npub: string;
   images: Array<{ src: string }>;
 }
 
@@ -34,14 +34,14 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
   const response: RetrieveProductResponse = {
     id: product.id,
-    name: product.name,
+    title: product.title,
     description: product.description,
-    price: product.price,
     images: product.images.map((image) => {
       return {
         src: `https://${process.env.BUCKET}.s3.amazonaws.com/${image.s3Key}`,
       };
     }),
+    npub: product.seller.npub,
   };
 
   return {

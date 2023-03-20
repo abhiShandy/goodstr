@@ -61,6 +61,14 @@ export class ServerStack extends Stack {
       entry: join(__dirname, "../server/functions/retrieveStore.ts"),
     });
 
+    const subscribeFn = new NodejsFunction(this, "Subscribe", {
+      entry: join(__dirname, "../server/functions/subscribe.ts"),
+      environment: {
+        SECRETS_ARN: secret.secretArn,
+      },
+    });
+    secret.grantRead(subscribeFn);
+
     // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
       restApiName: `${stage || "dev"}-thegoodstr-api`,
@@ -90,5 +98,8 @@ export class ServerStack extends Stack {
     const storeIdEndpoint = storeEndpoint.addResource("{id}");
 
     storeIdEndpoint.addMethod("GET", new LambdaIntegration(retrieveStoreFn));
+
+    const subscribeEndpoint = restApi.root.addResource("subscribe");
+    subscribeEndpoint.addMethod("POST", new LambdaIntegration(subscribeFn));
   }
 }

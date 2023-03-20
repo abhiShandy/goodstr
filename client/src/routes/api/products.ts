@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Product } from "../../lib/ProductList";
+import { Product } from "../../lib/molecules/ProductList";
 
 export type ListProductResponse = {
   id: number;

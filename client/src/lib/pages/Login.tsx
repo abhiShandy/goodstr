@@ -9,7 +9,7 @@ export type LoginProps = {
 const Login = (props: LoginProps) => {
   return (
     <>
-      <Navbar currentPage="login" />
+      <Navbar />
       <div className="bg-gray-200">
         <LoginForm onSubmit={props.onSubmit} />
       </div>

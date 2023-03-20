@@ -21,5 +21,4 @@ export const Sell = Template.bind({});
 
 Sell.args = {
   currentPage: "sell",
-  isLoggedIn: true,
 };

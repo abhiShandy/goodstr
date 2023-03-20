@@ -1,13 +1,15 @@
-import { Home } from "./Home";
+import Discover from "./Discover";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { products } from "../fake";
 
 export default {
-  title: "Pages/Home",
-  component: Home,
-} as ComponentMeta<typeof Home>;
+  title: "Pages/Discover",
+  component: Discover,
+} as ComponentMeta<typeof Discover>;
 
-const Template: ComponentStory<typeof Home> = (args) => <Home {...args} />;
+const Template: ComponentStory<typeof Discover> = (args) => (
+  <Discover {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {

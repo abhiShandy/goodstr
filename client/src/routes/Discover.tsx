@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { fetchProducts } from "./api/products";
-import { Home as HomePage } from "../lib/pages/Home";
+import DiscoverPage from "../lib/pages/Discover";
 
 const Discover = () => {
   const {
@@ -9,7 +9,9 @@ const Discover = () => {
     isLoading,
   } = useQuery("listProducts", fetchProducts);
 
-  return <HomePage products={products} error={error} isLoading={isLoading} />;
+  return (
+    <DiscoverPage products={products} error={error} isLoading={isLoading} />
+  );
 };
 
 export default Discover;
