@@ -7,9 +7,9 @@ import ProductOverview, { Product } from "../lib/molecules/ProductOverview";
 
 interface RetrieveProductResponse {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  price: number;
+  npub: string;
   images: Array<{ src: string }>;
 }
 
@@ -22,12 +22,13 @@ export const ProductPage = () => {
     const PRODUCTS_URL =
       import.meta.env.VITE_BASE_URL + "/products/" + productId;
     const response = await axios.get<RetrieveProductResponse>(PRODUCTS_URL);
+    console.log(response.data);
     return {
-      name: response.data.name,
-      price: response.data.price,
+      title: response.data.title,
+      seller: { npub: response.data.npub },
       description: response.data.description,
       imageSrc: response.data.images[0].src,
-      imageAlt: response.data.name,
+      imageAlt: response.data.title,
     };
   };
 

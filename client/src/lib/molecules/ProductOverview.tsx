@@ -1,11 +1,11 @@
 import { BuyNow } from "./BuyNow";
 
 export type Product = {
-  name: string;
-  price: number;
+  title: string;
   description: string;
   imageSrc: string;
   imageAlt: string;
+  seller: { npub: string };
 };
 
 export default function ProductOverview({
@@ -23,7 +23,7 @@ export default function ProductOverview({
         <div className="lg:max-w-lg lg:self-end">
           <div className="mt-4">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {product.name}
+              {product.title}
             </h1>
           </div>
 
@@ -34,7 +34,7 @@ export default function ProductOverview({
 
             <div className="flex items-center">
               <p className="text-lg text-gray-900 sm:text-xl">
-                {product.price} sats
+                {product.seller.npub}
               </p>
             </div>
 
@@ -58,9 +58,7 @@ export default function ProductOverview({
         {/* Product form */}
         <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
           <section aria-labelledby="options-heading">
-            <div className="mt-4">
-              <BuyNow price={product.price} invoice="placeholderlninvoice" />
-            </div>
+            <div className="mt-4">{/* <button>Download</button> */}</div>
           </section>
         </div>
       </div>

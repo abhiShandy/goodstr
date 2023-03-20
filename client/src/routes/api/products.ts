@@ -3,8 +3,8 @@ import { Product } from "../../lib/molecules/ProductList";
 
 export type ListProductResponse = {
   id: number;
-  name: string;
-  price: number;
+  title: string;
+  seller: { npub: string };
   images: { url: string }[];
 };
 
@@ -16,10 +16,10 @@ export const fetchProducts = async (): Promise<Product[]> => {
   response.data.forEach((d) => {
     products.push({
       id: d.id,
-      name: d.name,
+      title: d.title,
       imageSrc: d.images[0].url,
-      price: d.price,
-      imageAlt: d.name,
+      seller: d.seller,
+      imageAlt: d.title,
     });
   });
   return products;
@@ -33,10 +33,10 @@ export const fetchStoreProducts = async (): Promise<Product[]> => {
   response.data.forEach((d) => {
     products.push({
       id: d.id,
-      name: d.name,
+      title: d.title,
       imageSrc: d.images[0].url,
-      price: d.price,
-      imageAlt: d.name,
+      seller: d.seller,
+      imageAlt: d.title,
     });
   });
   return products;
