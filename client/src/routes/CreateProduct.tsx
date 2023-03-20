@@ -24,7 +24,7 @@ export const CreateProduct = () => {
     },
     {
       onSuccess: () => {
-        navigate("/");
+        navigate("/discover");
       },
     }
   );
