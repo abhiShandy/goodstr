@@ -1,3 +1,5 @@
+import Npub from "../atoms/Npub";
+
 export type Product = {
   id: number;
   title: string;
@@ -35,7 +37,7 @@ export default function ProductList({ products }: { products: Product[] }) {
                   {product.title}
                 </h3>
                 <p className="mt-1 text-sm text-gray-900">
-                  {product.seller.npub}
+                  <Npub npub={product.seller.npub} />
                 </p>
               </a>
             ))}

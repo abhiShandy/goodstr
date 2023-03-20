@@ -1,3 +1,4 @@
+import Npub from "../atoms/Npub";
 import { BuyNow } from "./BuyNow";
 
 export type Product = {
@@ -34,7 +35,7 @@ export default function ProductOverview({
 
             <div className="flex items-center">
               <p className="text-lg text-gray-900 sm:text-xl">
-                {product.seller.npub}
+                <Npub npub={product.seller.npub} />
               </p>
             </div>
 
