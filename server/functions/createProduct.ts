@@ -27,9 +27,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  const { name, description, images, price } = JSON.parse(event.body);
+  const { title, description, images, npub } = JSON.parse(event.body);
 
-  if (!name || !description || !images || !price) {
+  if (!title || !description || !images || !npub) {
     console.error("Missing required fields");
     return {
       statusCode: 400,
@@ -55,13 +55,10 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     console.info("Uploaded image to S3");
 
     const newProduct = new Product({
-      name,
+      title,
       description,
       images: [newImage],
-      price: Number(price),
-      store: {
-        id: "123",
-      },
+      npub,
     });
 
     await newProduct.create();

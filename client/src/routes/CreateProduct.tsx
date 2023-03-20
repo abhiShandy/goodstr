@@ -11,7 +11,7 @@ export const CreateProduct = () => {
     ({ data, base64str }: { data: AddProduct; base64str: string }) => {
       const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
       return axios.post(PRODUCTS_URL, {
-        name: data.name,
+        title: data.title,
         description: data.description,
         images: [
           {
@@ -19,7 +19,7 @@ export const CreateProduct = () => {
             data: base64str,
           },
         ],
-        price: Number(data.price),
+        npub: "npub", // TODO: derive from nsec
       });
     },
     {

@@ -1,10 +1,14 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type AddProduct = {
-  name: string;
+  title: string;
   description: string;
   image: FileList;
-  price: number;
+  /**
+   * Nostr private key
+   * - should start with nsec
+   */
+  nsec: number;
 };
 
 export default function AddProductForm({
@@ -32,17 +36,20 @@ export default function AddProductForm({
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
-                htmlFor="name"
+                htmlFor="title"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Name
+                Title
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
-                  {...register("name", { required: true, disabled: isLoading })}
+                  {...register("title", {
+                    required: true,
+                    disabled: isLoading,
+                  })}
                   type="text"
-                  id="name"
-                  autoComplete="name"
+                  id="title"
+                  autoComplete="title"
                   className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -122,26 +129,26 @@ export default function AddProductForm({
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="price"
+                htmlFor="nsec"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Price in sats
+                Nostr private key
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
-                  type="number"
-                  {...register("price", {
+                  type="text"
+                  {...register("nsec", {
                     required: true,
                     disabled: isLoading,
                   })}
-                  id="price"
-                  autoComplete="price"
-                  className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
-                  placeholder="100"
+                  id="nsec"
+                  autoComplete="nsec"
+                  className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                  placeholder="nsec..."
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                (100,000,000 sats = 1 BTC)
+                (this is required to sign your product)
               </p>
             </div>
           </div>

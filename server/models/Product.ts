@@ -4,12 +4,11 @@ import Image from "./Image";
 
 export type ProductFields = {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  price: number;
   images: Image[];
-  store: {
-    id: string;
+  seller: {
+    npub: string;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -17,35 +16,31 @@ export type ProductFields = {
 
 class Product {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  price: number;
   images: Image[];
-  store: {
-    id: string;
+  seller: {
+    npub: string;
   };
   createdAt: Date;
   updatedAt: Date;
 
   constructor({
-    name,
+    title,
     description,
-    price,
     images,
-    store,
+    npub,
   }: {
-    name: string;
+    title: string;
     description: string;
-    price: number;
     images: Image[];
-    store: { id: string };
+    npub: string;
   }) {
     this.id = "prod_" + nanoid();
-    this.name = name;
+    this.title = title;
     this.description = description;
-    this.price = price;
     this.images = images;
-    this.store = store;
+    this.seller.npub = npub;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -58,11 +53,10 @@ class Product {
         .collection<ProductFields>("products")
         .insertOne({
           id: this.id,
-          name: this.name,
+          title: this.title,
           description: this.description,
-          price: this.price,
           images: this.images,
-          store: this.store,
+          seller: this.seller,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         });
