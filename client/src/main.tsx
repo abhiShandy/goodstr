@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home, Store, CreateProduct, Product, Login } from "./routes";
+import { Home, CreateProduct, Product, Discover } from "./routes";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -11,8 +11,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/str/:storeId",
-    element: <Store />,
+    path: "/discover",
+    element: <Discover />,
   },
   {
     path: "/sell",
@@ -21,10 +21,6 @@ const router = createBrowserRouter([
   {
     path: "/products/:productId",
     element: <Product />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
   {
     path: "*",
