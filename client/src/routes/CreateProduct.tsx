@@ -4,6 +4,7 @@ import axios from "axios";
 import { Navbar } from "../lib/molecules/Navbar";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { nsecToNpub } from "./utils/nostr";
 
 export const CreateProduct = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const CreateProduct = () => {
             data: base64str,
           },
         ],
-        npub: "npub", // TODO: derive from nsec
+        npub: nsecToNpub(data.nsec),
       });
     },
     {

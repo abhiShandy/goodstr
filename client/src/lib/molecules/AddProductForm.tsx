@@ -8,7 +8,7 @@ export type AddProduct = {
    * Nostr private key
    * - should start with nsec
    */
-  nsec: number;
+  nsec: string;
 };
 
 export default function AddProductForm({
@@ -148,7 +148,7 @@ export default function AddProductForm({
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                (this is required to sign your product)
+                this is required to sign your product
               </p>
             </div>
           </div>

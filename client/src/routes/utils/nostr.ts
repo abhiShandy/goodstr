@@ -1,4 +1,5 @@
 import * as secp from "@noble/secp256k1";
+import { bech32 } from "@scure/base";
 
 export const publishTextMessage = async (
   pubkey: string,
@@ -76,4 +77,28 @@ export const requestMessages = async (pubkey: string) => {
   ws.onerror = () => {
     console.log("error");
   };
+};
+
+export const nsecToNpub = (nsec: string) => {
+  const { data: privkey } = decode(nsec);
+  const pubkey = secp.utils.bytesToHex(secp.schnorr.getPublicKey(privkey));
+  return encodeBytes("npub", pubkey);
+};
+
+const decode = (nip19: string) => {
+  const { prefix, words } = bech32.decode(nip19);
+  let data = new Uint8Array(bech32.fromWords(words));
+  switch (prefix) {
+    case "nsec":
+    case "npub":
+      return { type: prefix, data: secp.utils.bytesToHex(data) };
+    default:
+      throw new Error(`unknown prefix: ${prefix}`);
+  }
+};
+
+const encodeBytes = (prefix: string, hex: string): string => {
+  let data = secp.utils.hexToBytes(hex);
+  let words = bech32.toWords(data);
+  return bech32.encode(prefix, words, 5000);
 };
