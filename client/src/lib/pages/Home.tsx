@@ -1,16 +1,20 @@
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Navbar } from "../molecules/Navbar";
 
 function SubscribeForm() {
-  const { register, handleSubmit } = useForm<{ contact: string }>();
+  type FormValues = {
+    contact: string;
+  };
+  const { register, handleSubmit } = useForm<FormValues>();
 
-  const onSubmit = async (data: { contact: string }) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
 
     try {
-      const URL = import.meta.env.VITE_API_URL + "/subscribe";
+      const URL = import.meta.env.VITE_BASE_URL + "/subscribe";
       await axios.post(URL, data);
+      alert("Subscribed!");
     } catch (error) {
       console.error(error);
     }
@@ -36,21 +40,17 @@ function SubscribeForm() {
               npub or email address
             </label>
             <input
-              {...(register("contact"), { required: true })}
+              {...register("contact", { required: true })}
               id="contact"
-              name="contact"
-              type="contact"
-              autoComplete="contact"
-              required
+              type="text"
               className="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
               placeholder="Enter your npub or email address"
             />
-            <button
+            <input
               type="submit"
               className="flex-none rounded-md bg-gray-600 py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-            >
-              Subscribe
-            </button>
+              value="Subscribe"
+            />
           </div>
         </form>
       </div>
