@@ -5,8 +5,8 @@ import { faker } from "@faker-js/faker";
 export const products: Product[] = [
   {
     id: 1,
-    name: "Earthen Bottle",
-    price: 48000,
+    title: "Earthen Bottle",
+    seller: { npub: "npub" + faker.datatype.string(32) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
     imageAlt:
@@ -14,8 +14,8 @@ export const products: Product[] = [
   },
   {
     id: 2,
-    name: "Nomad Tumbler",
-    price: 35000,
+    title: "Nomad Tumbler",
+    seller: { npub: "npub" + faker.datatype.string(32) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
     imageAlt:
@@ -23,8 +23,8 @@ export const products: Product[] = [
   },
   {
     id: 3,
-    name: "Focus Paper Refill",
-    price: 89000,
+    title: "Focus Paper Refill",
+    seller: { npub: "npub" + faker.datatype.string(32) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
     imageAlt:
@@ -32,8 +32,8 @@ export const products: Product[] = [
   },
   {
     id: 4,
-    name: "Machined Mechanical Pencil",
-    price: 35000,
+    title: "Machined Mechanical Pencil",
+    seller: { npub: "npub" + faker.datatype.string(32) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
     imageAlt:
