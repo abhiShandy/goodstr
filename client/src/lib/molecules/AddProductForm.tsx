@@ -1,3 +1,4 @@
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type AddProduct = {
@@ -54,6 +55,9 @@ export default function AddProductForm({
                   className="block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              <p className="mt-2 text-sm text-gray-500">
+                Give a catchy name to your product.
+              </p>
             </div>
 
             <div className="sm:col-span-6">
@@ -125,6 +129,9 @@ export default function AddProductForm({
                   <p className="text-xs text-gray-500">PNG, JPEG up to 1 MB</p>
                 </div>
               </div>
+              <p className="mt-2 text-sm text-gray-500">
+                Make your product stand out with a great thumbnail.
+              </p>
             </div>
 
             <div className="sm:col-span-6">
@@ -136,6 +143,7 @@ export default function AddProductForm({
               </label>
               <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                 <div className="space-y-1 text-center">
+                  <ArrowUpTrayIcon className="h-10 w-10 p-1 mx-auto text-gray-400" />
                   <div className="flex text-sm text-gray-600 justify-center">
                     <label
                       htmlFor="asset"
@@ -160,6 +168,9 @@ export default function AddProductForm({
                   </p>
                 </div>
               </div>
+              <p className="mt-2 text-sm text-gray-500">
+                Combine multiple files into a ZIP file.
+              </p>
             </div>
 
             <div className="sm:col-span-6">
@@ -183,7 +194,7 @@ export default function AddProductForm({
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                this is required to sign your product
+                Prove that you are the seller of this product.
               </p>
             </div>
           </div>
@@ -193,7 +204,7 @@ export default function AddProductForm({
       <div className="pt-5">
         <div className="flex justify-end">
           <input
-            value={isLoading ? "Adding ..." : "Add"}
+            value={isLoading ? "Uploading ..." : "Add"}
             disabled={isLoading}
             type="submit"
             className={
