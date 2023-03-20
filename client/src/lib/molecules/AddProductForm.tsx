@@ -4,6 +4,7 @@ export type AddProduct = {
   title: string;
   description: string;
   image: FileList;
+  asset: FileList;
   /**
    * Nostr private key
    * - should start with nsec
@@ -29,7 +30,7 @@ export default function AddProductForm({
         <div>
           <div>
             <h3 className="text-base font-semibold leading-6 text-gray-900">
-              Add Product
+              Add a product to sell
             </h3>
           </div>
 
@@ -84,10 +85,10 @@ export default function AddProductForm({
                 htmlFor="image"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Photo
+                Thumbnail
               </label>
               <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                <div className="space-y-1 text-center">
+                <div className="space-y-1 text-center ">
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
                     stroke="currentColor"
@@ -102,7 +103,7 @@ export default function AddProductForm({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <div className="flex text-sm text-gray-600">
+                  <div className="flex text-sm text-gray-600 justify-center">
                     <label
                       htmlFor="image"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2 hover:text-gray-500"
@@ -120,9 +121,43 @@ export default function AddProductForm({
                         size={1024 * 1024}
                       />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
                   </div>
                   <p className="text-xs text-gray-500">PNG, JPEG up to 1 MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
+              <label
+                htmlFor="asset"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Downloadable assets
+              </label>
+              <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                <div className="space-y-1 text-center">
+                  <div className="flex text-sm text-gray-600 justify-center">
+                    <label
+                      htmlFor="asset"
+                      className="cursor-pointer rounded-md bg-white font-medium text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2 hover:text-gray-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="asset"
+                        {...register("asset", {
+                          required: true,
+                          disabled: isLoading,
+                        })}
+                        type="file"
+                        accept="image/*, application/pdf, application/zip"
+                        className="sr-only"
+                        size={1024 * 1024 * 10}
+                      />
+                    </label>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    PNG, JPEG, PDF or ZIP up to 10 MB
+                  </p>
                 </div>
               </div>
             </div>
@@ -132,7 +167,7 @@ export default function AddProductForm({
                 htmlFor="nsec"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Nostr private key
+                NOSTR private key
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
