@@ -6,7 +6,7 @@ export const products: Product[] = [
   {
     id: 1,
     title: "Earthen Bottle",
-    seller: { npub: "npub" + faker.datatype.string(32) },
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
     imageAlt:
@@ -15,7 +15,7 @@ export const products: Product[] = [
   {
     id: 2,
     title: "Nomad Tumbler",
-    seller: { npub: "npub" + faker.datatype.string(32) },
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
     imageAlt:
@@ -24,7 +24,7 @@ export const products: Product[] = [
   {
     id: 3,
     title: "Focus Paper Refill",
-    seller: { npub: "npub" + faker.datatype.string(32) },
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
     imageAlt:
@@ -33,7 +33,7 @@ export const products: Product[] = [
   {
     id: 4,
     title: "Machined Mechanical Pencil",
-    seller: { npub: "npub" + faker.datatype.string(32) },
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
     imageAlt:
