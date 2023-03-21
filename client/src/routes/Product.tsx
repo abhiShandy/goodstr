@@ -8,9 +8,9 @@ import { fetchProduct } from "./api/products";
 const Product = () => {
   const productId = window.location.pathname.split("/")[2];
 
-  const downloadAsset = async (key: string) => {
+  const downloadAsset = async () => {
     try {
-      const url = await getAssetDownloadURL(key);
+      const url = await getAssetDownloadURL(productId);
       window.open(url);
     } catch (e) {
       console.error(e);
@@ -38,10 +38,7 @@ const Product = () => {
     return (
       <>
         <Navbar />
-        <ProductOverview
-          product={product}
-          onDownload={() => downloadAsset(product.assetKey)}
-        />
+        <ProductOverview product={product} onDownload={downloadAsset} />
       </>
     );
 

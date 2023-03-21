@@ -14,9 +14,11 @@ export const uploadAsset = async (url: string, file: File): Promise<void> => {
   await axios.put(url, file);
 };
 
-export const getAssetDownloadURL = async (key: string): Promise<string> => {
+export const getAssetDownloadURL = async (
+  productId: string
+): Promise<string> => {
   const res = await axios.get<{ url: string }>(
-    import.meta.env.VITE_BASE_URL + "/assets/" + key
+    import.meta.env.VITE_BASE_URL + "/products/assets/" + productId
   );
   return res.data.url;
 };

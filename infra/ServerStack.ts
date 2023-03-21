@@ -95,10 +95,12 @@ export class ServerStack extends Stack {
         entry: join(__dirname, "../server/functions/getAssetDownloadURL.ts"),
         environment: {
           BUCKET: assetBucket.bucketName,
+          SECRETS_ARN: secret.secretArn,
         },
       }
     );
 
+    secret.grantRead(getAssetDownloadURL);
     assetBucket.grantRead(getAssetDownloadURL);
 
     // === API Gateway ===
@@ -134,8 +136,8 @@ export class ServerStack extends Stack {
     const subscribeEndpoint = restApi.root.addResource("subscribe");
     subscribeEndpoint.addMethod("POST", new LambdaIntegration(subscribeFn));
 
-    const assetEndpoint = restApi.root.addResource("assets");
-    const assetKeyEndpoint = assetEndpoint.addResource("{key}");
+    const assetEndpoint = productsEndpoint.addResource("assets");
+    const assetDownloadEndpoint = assetEndpoint.addResource("{id}");
     const assetUploadEndpoint = assetEndpoint.addResource("upload");
 
     assetUploadEndpoint.addMethod(
@@ -143,7 +145,7 @@ export class ServerStack extends Stack {
       new LambdaIntegration(getAssetUploadURLFn)
     );
 
-    assetKeyEndpoint.addMethod(
+    assetDownloadEndpoint.addMethod(
       "GET",
       new LambdaIntegration(getAssetDownloadURL)
     );
