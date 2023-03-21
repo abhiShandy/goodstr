@@ -62,12 +62,12 @@ export const fetchStoreProducts = async (): Promise<Product[]> => {
   return products;
 };
 
-export const getS3UploadUrl = async (): Promise<{
+export const getAssetUploadURL = async (): Promise<{
   url: string;
   key: string;
 }> => {
   const res = await axios.get<{ url: string; key: string }>(
-    import.meta.env.VITE_BASE_URL + "/assets-s3"
+    import.meta.env.VITE_BASE_URL + "/assets/upload"
   );
   return res.data;
 };

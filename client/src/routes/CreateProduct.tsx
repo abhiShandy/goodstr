@@ -3,7 +3,7 @@ import AddProductForm, { AddProduct } from "../lib/molecules/AddProductForm";
 import { Navbar } from "../lib/molecules/Navbar";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { createProduct, getS3UploadUrl, uploadAsset } from "./api/products";
+import { createProduct, getAssetUploadURL, uploadAsset } from "./api/products";
 import { useState } from "react";
 import { nsecToNpub } from "./utils/nostr";
 
@@ -26,7 +26,7 @@ export const CreateProduct = () => {
       setIsLoading(true);
       const npub = nsecToNpub(event.nsec);
 
-      const { url, key } = await getS3UploadUrl();
+      const { url, key } = await getAssetUploadURL();
 
       await uploadAsset(url, event.asset[0]);
 
