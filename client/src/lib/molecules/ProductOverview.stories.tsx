@@ -27,3 +27,38 @@ Default.args = {
       "Model wearing light green backpack with black canvas straps and front zipper pouch.",
   },
 };
+
+export const FewDownloads = Template.bind({});
+FewDownloads.args = {
+  product: {
+    title: "Everyday Ruck Snack",
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    description:
+      "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-04-featured-product-shot.jpg",
+    imageAlt:
+      "Model wearing light green backpack with black canvas straps and front zipper pouch.",
+  },
+  downloads: 42,
+};
+
+export const NoProduct = Template.bind({});
+NoProduct.args = {
+  product: null,
+};
+
+export const NoDownloads = Template.bind({});
+NoDownloads.args = {
+  product: {
+    title: "Everyday Ruck Snack",
+    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    description:
+      "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/product-page-04-featured-product-shot.jpg",
+    imageAlt:
+      "Model wearing light green backpack with black canvas straps and front zipper pouch.",
+  },
+  downloads: 0,
+};

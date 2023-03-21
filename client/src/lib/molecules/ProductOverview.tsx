@@ -11,9 +11,11 @@ export type Product = {
 
 export default function ProductOverview({
   product,
+  downloads,
   onDownload,
 }: {
   product: Product | null;
+  downloads?: number;
   onDownload: () => void;
 }) {
   if (!product)
@@ -68,6 +70,12 @@ export default function ProductOverview({
                 Download for free
                 <ArrowDownTrayIcon className="h-5 w-5 ml-2" strokeWidth={2} />
               </button>
+              {!!downloads && (
+                <p className="text-sm text-gray-600 text-right py-1">
+                  <span className="font-semibold">{downloads}</span>{" "}
+                  <span className="font-thin">downloads</span>
+                </p>
+              )}
             </div>
           </section>
         </div>

@@ -42,8 +42,11 @@ const Product = () => {
     return (
       <>
         <Navbar />
-        <ProductOverview product={product} onDownload={downloadAsset} />
-        {downloads && <span>{downloads} Downloads</span>}
+        <ProductOverview
+          product={product}
+          onDownload={downloadAsset}
+          downloads={downloads}
+        />
       </>
     );
 
