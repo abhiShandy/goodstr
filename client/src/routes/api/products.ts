@@ -42,14 +42,42 @@ export const fetchStoreProducts = async (): Promise<Product[]> => {
   return products;
 };
 
-export const getS3UploadUrl = async () => {
+export const getS3UploadUrl = async (): Promise<{
+  url: string;
+  key: string;
+}> => {
   const res = await axios.get<{ url: string; key: string }>(
     import.meta.env.VITE_BASE_URL + "/assets-s3"
   );
   return res.data;
 };
 
-export const uploadAsset = async (url: string, file: File) => {
-  const res = await axios.put(url, file);
-  return res;
+export const uploadAsset = async (url: string, file: File): Promise<void> => {
+  await axios.put(url, file);
+};
+
+type CreateProductInput = {
+  product: {
+    title: string;
+    description: string;
+    assetKey: string;
+    npub: string;
+  };
+  images: [{ type: string; base64str: string }];
+};
+
+export const createProduct = ({ product, images }: CreateProductInput) => {
+  const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
+  return axios.post(PRODUCTS_URL, {
+    title: product.title,
+    description: product.description,
+    images: [
+      {
+        type: images[0].type,
+        data: images[0].base64str,
+      },
+    ],
+    assetKey: product.assetKey,
+    npub: product.npub,
+  });
 };
