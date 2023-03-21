@@ -1,5 +1,5 @@
 import { Home } from "./Home";
-import { ProductPage as Product } from "./Product";
+import Product from "./Product";
 import { CreateProduct } from "./CreateProduct";
 import Discover from "./Discover";
 

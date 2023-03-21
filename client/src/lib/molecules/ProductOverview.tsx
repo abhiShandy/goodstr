@@ -1,5 +1,5 @@
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import Npub from "../atoms/Npub";
-import { BuyNow } from "./BuyNow";
 
 export type Product = {
   title: string;
@@ -11,8 +11,10 @@ export type Product = {
 
 export default function ProductOverview({
   product,
+  onDownload,
 }: {
   product: Product | null;
+  onDownload: () => void;
 }) {
   if (!product)
     return <div className="text-center mt-16">No product found</div>;
@@ -56,10 +58,17 @@ export default function ProductOverview({
           </div>
         </div>
 
-        {/* Product form */}
         <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
           <section aria-labelledby="options-heading">
-            <div className="mt-4">{/* <button>Download</button> */}</div>
+            <div className="mt-4">
+              <button
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                onClick={onDownload}
+              >
+                Download for free
+                <ArrowDownTrayIcon className="h-5 w-5 ml-2" strokeWidth={2} />
+              </button>
+            </div>
           </section>
         </div>
       </div>

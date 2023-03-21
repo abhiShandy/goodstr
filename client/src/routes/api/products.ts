@@ -25,6 +25,26 @@ export const fetchProducts = async (): Promise<Product[]> => {
   return products;
 };
 
+interface RetrieveProductResponse {
+  id: string;
+  title: string;
+  description: string;
+  npub: string;
+  images: Array<{ src: string }>;
+}
+
+export const fetchProduct = async (productId: string) => {
+  const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products/" + productId;
+  const response = await axios.get<RetrieveProductResponse>(PRODUCTS_URL);
+  return {
+    title: response.data.title,
+    seller: { npub: response.data.npub },
+    description: response.data.description,
+    imageSrc: response.data.images[0].src,
+    imageAlt: response.data.title,
+  };
+};
+
 export const fetchStoreProducts = async (): Promise<Product[]> => {
   const response = await axios.get<ListProductResponse[]>(
     import.meta.env.VITE_BASE_URL + "/products"

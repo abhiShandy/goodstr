@@ -1,37 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { LoadingGrid } from "../lib/molecules/LoadingGrid";
 import { Navbar } from "../lib/molecules/Navbar";
-import ProductOverview, { Product } from "../lib/molecules/ProductOverview";
+import ProductOverview from "../lib/molecules/ProductOverview";
+import { fetchProduct } from "./api/products";
 
-interface RetrieveProductResponse {
-  id: string;
-  title: string;
-  description: string;
-  npub: string;
-  images: Array<{ src: string }>;
-}
-
-export const ProductPage = () => {
-  // const [product, setProduct] = useState<Product | null>(null);
-
+const Product = () => {
   const productId = window.location.pathname.split("/")[2];
 
-  const fetchProduct = async () => {
-    const PRODUCTS_URL =
-      import.meta.env.VITE_BASE_URL + "/products/" + productId;
-    const response = await axios.get<RetrieveProductResponse>(PRODUCTS_URL);
-    return {
-      title: response.data.title,
-      seller: { npub: response.data.npub },
-      description: response.data.description,
-      imageSrc: response.data.images[0].src,
-      imageAlt: response.data.title,
-    };
-  };
-
-  const { data: product, error, isLoading } = useQuery(productId, fetchProduct);
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useQuery(productId, () => fetchProduct(productId));
 
   if (isLoading)
     return (
@@ -47,9 +27,11 @@ export const ProductPage = () => {
     return (
       <>
         <Navbar />
-        <ProductOverview product={product} />
+        <ProductOverview product={product} onDownload={() => {}} />
       </>
     );
 
   return <div>Something went wrong</div>;
 };
+
+export default Product;
