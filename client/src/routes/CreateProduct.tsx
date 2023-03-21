@@ -5,21 +5,10 @@ import { Navbar } from "../lib/molecules/Navbar";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { nsecToNpub } from "./utils/nostr";
+import { getS3UploadUrl, uploadAsset } from "./api/products";
 
 export const CreateProduct = () => {
   const navigate = useNavigate();
-
-  const getS3UploadUrl = async () => {
-    const res = await axios.get<{ url: string; key: string }>(
-      import.meta.env.VITE_BASE_URL + "/assets-s3"
-    );
-    return res.data;
-  };
-
-  const uploadAsset = async (url: string, file: File) => {
-    const res = await axios.put(url, file);
-    return res;
-  };
 
   type CreateProductInput = {
     product: {

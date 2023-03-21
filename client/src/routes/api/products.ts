@@ -41,3 +41,15 @@ export const fetchStoreProducts = async (): Promise<Product[]> => {
   });
   return products;
 };
+
+export const getS3UploadUrl = async () => {
+  const res = await axios.get<{ url: string; key: string }>(
+    import.meta.env.VITE_BASE_URL + "/assets-s3"
+  );
+  return res.data;
+};
+
+export const uploadAsset = async (url: string, file: File) => {
+  const res = await axios.put(url, file);
+  return res;
+};
