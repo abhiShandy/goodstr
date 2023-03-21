@@ -7,6 +7,9 @@ interface RetrieveProductResponse {
   description: string;
   npub: string;
   images: Array<{ src: string }>;
+  asset: {
+    s3Key: string;
+  };
 }
 
 export const handler: APIGatewayProxyHandler = async (event) => {
@@ -42,6 +45,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       };
     }),
     npub: product.seller.npub,
+    asset: {
+      s3Key: product.asset.s3Key,
+    },
   };
 
   return {

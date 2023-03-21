@@ -3,7 +3,8 @@ import AddProductForm, { AddProduct } from "../lib/molecules/AddProductForm";
 import { Navbar } from "../lib/molecules/Navbar";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { createProduct, getAssetUploadURL, uploadAsset } from "./api/products";
+import { createProduct } from "./api/products";
+import { getAssetUploadURL, uploadAsset } from "./api/assets";
 import { useState } from "react";
 import { nsecToNpub } from "./utils/nostr";
 

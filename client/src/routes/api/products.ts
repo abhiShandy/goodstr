@@ -31,6 +31,9 @@ interface RetrieveProductResponse {
   description: string;
   npub: string;
   images: Array<{ src: string }>;
+  asset: {
+    s3Key: string;
+  };
 }
 
 export const fetchProduct = async (productId: string) => {
@@ -42,38 +45,8 @@ export const fetchProduct = async (productId: string) => {
     description: response.data.description,
     imageSrc: response.data.images[0].src,
     imageAlt: response.data.title,
+    assetKey: response.data.asset.s3Key,
   };
-};
-
-export const fetchStoreProducts = async (): Promise<Product[]> => {
-  const response = await axios.get<ListProductResponse[]>(
-    import.meta.env.VITE_BASE_URL + "/products"
-  );
-  const products: Product[] = [];
-  response.data.forEach((d) => {
-    products.push({
-      id: d.id,
-      title: d.title,
-      imageSrc: d.images[0].url,
-      seller: d.seller,
-      imageAlt: d.title,
-    });
-  });
-  return products;
-};
-
-export const getAssetUploadURL = async (): Promise<{
-  url: string;
-  key: string;
-}> => {
-  const res = await axios.get<{ url: string; key: string }>(
-    import.meta.env.VITE_BASE_URL + "/assets/upload"
-  );
-  return res.data;
-};
-
-export const uploadAsset = async (url: string, file: File): Promise<void> => {
-  await axios.put(url, file);
 };
 
 type CreateProductInput = {
