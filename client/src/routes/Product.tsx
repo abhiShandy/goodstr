@@ -22,7 +22,6 @@ export const ProductPage = () => {
     const PRODUCTS_URL =
       import.meta.env.VITE_BASE_URL + "/products/" + productId;
     const response = await axios.get<RetrieveProductResponse>(PRODUCTS_URL);
-    console.log(response.data);
     return {
       title: response.data.title,
       seller: { npub: response.data.npub },

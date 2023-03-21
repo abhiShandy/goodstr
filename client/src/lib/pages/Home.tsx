@@ -9,8 +9,6 @@ function SubscribeForm() {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
-
     try {
       const URL = import.meta.env.VITE_BASE_URL + "/subscribe";
       await axios.post(URL, data);
