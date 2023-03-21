@@ -11,6 +11,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   const command = new PutObjectCommand({
     Bucket: process.env.BUCKET,
     Key: "asset_" + nanoid(),
+    ContentType: event.queryStringParameters?.contentType,
   });
 
   const url = await getSignedUrl(s3Client, command, { expiresIn: 60 });

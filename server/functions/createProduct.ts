@@ -27,9 +27,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  const { title, description, images, npub } = JSON.parse(event.body);
+  const { title, description, images, assetKey, npub } = JSON.parse(event.body);
 
-  if (!title || !description || !images || !npub) {
+  if (!title || !description || !images || !npub || !assetKey) {
     console.error("Missing required fields");
     return {
       statusCode: 400,
@@ -58,6 +58,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       title,
       description,
       images: [newImage],
+      assetKey,
       npub,
     });
 

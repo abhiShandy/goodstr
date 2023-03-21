@@ -10,6 +10,9 @@ export type ProductFields = {
   seller: {
     npub: string;
   };
+  asset: {
+    s3Key: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 };
@@ -22,6 +25,9 @@ class Product {
   seller: {
     npub: string;
   };
+  asset: {
+    s3Key: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 
@@ -30,17 +36,20 @@ class Product {
     description,
     images,
     npub,
+    assetKey,
   }: {
     title: string;
     description: string;
     images: Image[];
     npub: string;
+    assetKey: string;
   }) {
     this.id = "prod_" + nanoid();
     this.title = title;
     this.description = description;
     this.images = images;
     this.seller = { npub };
+    this.asset = { s3Key: assetKey };
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -57,6 +66,7 @@ class Product {
           description: this.description,
           images: this.images,
           seller: this.seller,
+          asset: this.asset,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         });

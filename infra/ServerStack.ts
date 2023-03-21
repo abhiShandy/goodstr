@@ -1,7 +1,7 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 
-import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Bucket, HttpMethods } from "aws-cdk-lib/aws-s3";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 import { join } from "path";
@@ -15,7 +15,15 @@ export class ServerStack extends Stack {
       publicReadAccess: true,
     });
 
-    const assetBucket = new Bucket(this, "Assets", {});
+    const assetBucket = new Bucket(this, "Assets", {
+      cors: [
+        {
+          allowedHeaders: ["*"],
+          allowedMethods: [HttpMethods.PUT],
+          allowedOrigins: ["*"],
+        },
+      ],
+    });
 
     const stage = scope.node.tryGetContext("stage") as string | undefined;
 

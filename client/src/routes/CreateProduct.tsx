@@ -8,19 +8,43 @@ import { nsecToNpub } from "./utils/nostr";
 
 export const CreateProduct = () => {
   const navigate = useNavigate();
-  const mutation = useMutation(
-    ({ data, base64str }: { data: AddProduct; base64str: string }) => {
+
+  const getS3UploadUrl = async () => {
+    const res = await axios.get<{ url: string; key: string }>(
+      import.meta.env.VITE_BASE_URL + "/assets-s3"
+    );
+    return res.data;
+  };
+
+  const uploadAsset = async (url: string, file: File) => {
+    const res = await axios.put(url, file);
+    return res;
+  };
+
+  type CreateProductInput = {
+    product: {
+      title: string;
+      description: string;
+      assetKey: string;
+      nsec: string;
+    };
+    images: [{ type: string; base64str: string }];
+  };
+
+  const createProduct = useMutation(
+    ({ product, images }: CreateProductInput) => {
       const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
       return axios.post(PRODUCTS_URL, {
-        title: data.title,
-        description: data.description,
+        title: product.title,
+        description: product.description,
         images: [
           {
-            type: data.image[0].type,
-            data: base64str,
+            type: images[0].type,
+            data: images[0].base64str,
           },
         ],
-        npub: nsecToNpub(data.nsec),
+        assetKey: product.assetKey,
+        npub: nsecToNpub(product.nsec),
       });
     },
     {
@@ -32,13 +56,34 @@ export const CreateProduct = () => {
 
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
     try {
-      const reader = new FileReader();
-      reader.onload = async function (fileReaderEvent) {
+      const { url, key } = await getS3UploadUrl();
+
+      await uploadAsset(url, event.asset[0]);
+
+      console.log("Asset uploaded to S3!");
+
+      const thumbnailReader = new FileReader();
+      thumbnailReader.onload = async function (fileReaderEvent) {
         const result = fileReaderEvent.target?.result as string;
+
         const base64str = result.replace(/^data:image\/(png|jpeg);base64,/, "");
-        mutation.mutate({ data: event, base64str });
+
+        createProduct.mutate({
+          product: {
+            title: event.title,
+            description: event.description,
+            assetKey: key,
+            nsec: event.nsec,
+          },
+          images: [
+            {
+              type: event.image[0].type,
+              base64str,
+            },
+          ],
+        });
       };
-      reader.readAsDataURL(event.image[0]);
+      thumbnailReader.readAsDataURL(event.image[0]);
     } catch (e) {
       console.error("post-error", e);
     }
@@ -47,10 +92,13 @@ export const CreateProduct = () => {
   return (
     <>
       <Navbar currentPage="sell" />
-      <div className="max-w-lg mx-auto mt-8 px-4">
-        <AddProductForm onSubmit={onSubmit} isLoading={mutation.isLoading} />
+      <div className="max-w-lg mx-auto mt-8 p-4">
+        <AddProductForm
+          onSubmit={onSubmit}
+          isLoading={createProduct.isLoading}
+        />
       </div>
-      {mutation.isError && (
+      {createProduct.isError && (
         <div className="text-red-500 text-center">error creating product</div>
       )}
     </>
