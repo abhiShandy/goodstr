@@ -67,10 +67,6 @@ export class ServerStack extends Stack {
 
     secret.grantRead(retrieveProductFn);
 
-    const retrieveStoreFn = new NodejsFunction(this, "RetrieveStore", {
-      entry: join(__dirname, "../server/functions/retrieveStore.ts"),
-    });
-
     const subscribeFn = new NodejsFunction(this, "Subscribe", {
       entry: join(__dirname, "../server/functions/subscribe.ts"),
       environment: {
@@ -103,6 +99,19 @@ export class ServerStack extends Stack {
     secret.grantRead(getAssetDownloadURL);
     assetBucket.grantRead(getAssetDownloadURL);
 
+    const getProductDownloadsFn = new NodejsFunction(
+      this,
+      "GetProductDownloads",
+      {
+        entry: join(__dirname, "../server/functions/getProductDownloads.ts"),
+        environment: {
+          SECRETS_ARN: secret.secretArn,
+        },
+      }
+    );
+
+    secret.grantRead(getProductDownloadsFn);
+
     // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
       restApiName: `${stage || "dev"}-thegoodstr-api`,
@@ -117,37 +126,52 @@ export class ServerStack extends Stack {
       },
     });
 
+    /**
+     * /products
+     */
     const productsEndpoint = restApi.root.addResource("products");
 
     productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
     productsEndpoint.addMethod("GET", new LambdaIntegration(listProductFn));
 
+    /**
+     * /products/{id}
+     */
     const productsIdEndpoint = productsEndpoint.addResource("{id}");
     productsIdEndpoint.addMethod(
       "GET",
       new LambdaIntegration(retrieveProductFn)
     );
 
-    const storeEndpoint = restApi.root.addResource("stores");
-    const storeIdEndpoint = storeEndpoint.addResource("{id}");
-
-    storeIdEndpoint.addMethod("GET", new LambdaIntegration(retrieveStoreFn));
-
-    const subscribeEndpoint = restApi.root.addResource("subscribe");
-    subscribeEndpoint.addMethod("POST", new LambdaIntegration(subscribeFn));
-
-    const assetEndpoint = productsEndpoint.addResource("assets");
-    const assetDownloadEndpoint = assetEndpoint.addResource("{id}");
-    const assetUploadEndpoint = assetEndpoint.addResource("upload");
+    /**
+     * /products/{id}/assets
+     */
+    const assetEndpoint = productsIdEndpoint.addResource("assets");
+    /**
+     * /products/upload
+     */
+    const assetUploadEndpoint = productsEndpoint.addResource("upload");
 
     assetUploadEndpoint.addMethod(
       "GET",
       new LambdaIntegration(getAssetUploadURLFn)
     );
 
-    assetDownloadEndpoint.addMethod(
+    assetEndpoint.addMethod("GET", new LambdaIntegration(getAssetDownloadURL));
+
+    /**
+     * /products/{id}/downloads
+     */
+    const downloadsEndpoint = productsIdEndpoint.addResource("downloads");
+    downloadsEndpoint.addMethod(
       "GET",
-      new LambdaIntegration(getAssetDownloadURL)
+      new LambdaIntegration(getProductDownloadsFn)
     );
+
+    /**
+     * /subscribe
+     */
+    const subscribeEndpoint = restApi.root.addResource("subscribe");
+    subscribeEndpoint.addMethod("POST", new LambdaIntegration(subscribeFn));
   }
 }

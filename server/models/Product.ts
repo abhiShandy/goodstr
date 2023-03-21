@@ -106,6 +106,32 @@ class Product {
       return null;
     }
   }
+
+  static async incrementDownloads(id: string): Promise<void> {
+    try {
+      const mongoClient = await MongoClient();
+      const res = await mongoClient
+        .db("thegoodstr")
+        .collection<{ id: string; downloads: number }>("product-downloads")
+        .findOneAndUpdate({ id }, { $inc: { downloads: 1 } }, { upsert: true });
+    } catch (err) {
+      console.error("Error incrementing downloads: ", err);
+    }
+  }
+
+  static async getDownloads(id: string): Promise<number> {
+    try {
+      const mongoClient = await MongoClient();
+      const res = await mongoClient
+        .db("thegoodstr")
+        .collection<{ id: string; downloads: number }>("product-downloads")
+        .findOne({ id });
+      return res?.downloads || 0;
+    } catch (err) {
+      console.error("Error getting downloads: ", err);
+      return 0;
+    }
+  }
 }
 
 export default Product;

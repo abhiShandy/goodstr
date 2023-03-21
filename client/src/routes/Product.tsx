@@ -3,7 +3,7 @@ import { LoadingGrid } from "../lib/molecules/LoadingGrid";
 import { Navbar } from "../lib/molecules/Navbar";
 import ProductOverview from "../lib/molecules/ProductOverview";
 import { getAssetDownloadURL } from "./api/assets";
-import { fetchProduct } from "./api/products";
+import { fetchProduct, fetchProductDownloads } from "./api/products";
 
 const Product = () => {
   const productId = window.location.pathname.split("/")[2];
@@ -24,6 +24,10 @@ const Product = () => {
     isLoading,
   } = useQuery(productId, () => fetchProduct(productId));
 
+  const { data: downloads } = useQuery(productId + "downloads", () =>
+    fetchProductDownloads(productId)
+  );
+
   if (isLoading)
     return (
       <>
@@ -39,6 +43,7 @@ const Product = () => {
       <>
         <Navbar />
         <ProductOverview product={product} onDownload={downloadAsset} />
+        {downloads && <span>{downloads} Downloads</span>}
       </>
     );
 

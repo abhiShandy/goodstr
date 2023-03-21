@@ -39,6 +39,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
   const url = await getSignedUrl(s3Client, command, { expiresIn: 60 });
 
+  await Product.incrementDownloads(productId);
+
   return {
     statusCode: 200,
     body: JSON.stringify({ url, key: command.input.Key }),

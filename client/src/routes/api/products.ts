@@ -74,3 +74,10 @@ export const createProduct = ({ product, images }: CreateProductInput) => {
     npub: product.npub,
   });
 };
+
+export const fetchProductDownloads = async (productId: string) => {
+  const response = await axios.get<{ downloads: number }>(
+    import.meta.env.VITE_BASE_URL + "/products/" + productId + "/downloads"
+  );
+  return response.data.downloads;
+};

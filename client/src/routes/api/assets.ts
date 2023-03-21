@@ -5,7 +5,7 @@ export const getAssetUploadURL = async (): Promise<{
   key: string;
 }> => {
   const res = await axios.get<{ url: string; key: string }>(
-    import.meta.env.VITE_BASE_URL + "/assets/upload"
+    import.meta.env.VITE_BASE_URL + "/products/upload"
   );
   return res.data;
 };
@@ -18,7 +18,7 @@ export const getAssetDownloadURL = async (
   productId: string
 ): Promise<string> => {
   const res = await axios.get<{ url: string }>(
-    import.meta.env.VITE_BASE_URL + "/products/assets/" + productId
+    import.meta.env.VITE_BASE_URL + "/products/" + productId + "/assets"
   );
   return res.data.url;
 };
