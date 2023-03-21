@@ -79,14 +79,27 @@ export class ServerStack extends Stack {
     });
     secret.grantRead(subscribeFn);
 
-    const getPreSignedS3URLFn = new NodejsFunction(this, "GetPreSignedS3URL", {
-      entry: join(__dirname, "../server/functions/getPreSignedS3URL.ts"),
+    const getAssetUploadURLFn = new NodejsFunction(this, "GetAssetUploadURL", {
+      entry: join(__dirname, "../server/functions/getAssetUploadURL.ts"),
       environment: {
         BUCKET: assetBucket.bucketName,
       },
     });
 
-    assetBucket.grantWrite(getPreSignedS3URLFn);
+    assetBucket.grantWrite(getAssetUploadURLFn);
+
+    const getAssetDownloadURL = new NodejsFunction(
+      this,
+      "GetAssetDownloadURL",
+      {
+        entry: join(__dirname, "../server/functions/getAssetDownloadURL.ts"),
+        environment: {
+          BUCKET: assetBucket.bucketName,
+        },
+      }
+    );
+
+    assetBucket.grantRead(getAssetDownloadURL);
 
     // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
@@ -121,10 +134,18 @@ export class ServerStack extends Stack {
     const subscribeEndpoint = restApi.root.addResource("subscribe");
     subscribeEndpoint.addMethod("POST", new LambdaIntegration(subscribeFn));
 
-    const assetS3Endpoint = restApi.root.addResource("assets-s3");
-    assetS3Endpoint.addMethod(
+    const assetEndpoint = restApi.root.addResource("assets");
+    const assetKeyEndpoint = assetEndpoint.addResource("{key}");
+    const assetUploadEndpoint = assetEndpoint.addResource("upload");
+
+    assetUploadEndpoint.addMethod(
       "GET",
-      new LambdaIntegration(getPreSignedS3URLFn)
+      new LambdaIntegration(getAssetUploadURLFn)
+    );
+
+    assetKeyEndpoint.addMethod(
+      "GET",
+      new LambdaIntegration(getAssetDownloadURL)
     );
   }
 }
