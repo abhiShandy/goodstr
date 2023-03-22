@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaGithub } from "react-icons/fa";
 import { BiBitcoin } from "react-icons/bi";
+import Logo from "../assets/Logo";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -27,7 +28,9 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center font-bold text-lg font-mono">
-                  <a href="/">GoodStr</a>
+                  <a href="/">
+                    <Logo />
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-gray-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
