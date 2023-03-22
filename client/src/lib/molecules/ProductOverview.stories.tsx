@@ -1,7 +1,6 @@
 import ProductOverview from "./ProductOverview";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { faker } from "@faker-js/faker";
 
 const meta: ComponentMeta<typeof ProductOverview> = {
   title: "ProductOverview",
@@ -18,7 +17,9 @@ export const Default = Template.bind({});
 Default.args = {
   product: {
     title: "Everyday Ruck Snack",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     description:
       "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
     imageSrc:
@@ -32,7 +33,9 @@ export const FewDownloads = Template.bind({});
 FewDownloads.args = {
   product: {
     title: "Everyday Ruck Snack",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     description:
       "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
     imageSrc:
@@ -52,7 +55,9 @@ export const NoDownloads = Template.bind({});
 NoDownloads.args = {
   product: {
     title: "Everyday Ruck Snack",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     description:
       "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
     imageSrc:

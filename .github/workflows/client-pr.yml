@@ -2,10 +2,12 @@ name: Client PR Review
 
 on:
   pull_request:
+    branches:
+      - main
     paths:
       - "client/**"
 
-concurrecny: client-pr
+concurrency: client-pr
 
 jobs:
   build:
