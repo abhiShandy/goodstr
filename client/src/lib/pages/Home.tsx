@@ -67,7 +67,7 @@ const Home = () => {
         <h2 className="mt-6 text-lg leading-8 text-gray-600">
           A place to discover and share great products
         </h2>
-        <div className="mt-6 grid grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 px-8">
           <a
             href="/discover"
             className="rounded-md bg-gray-600 py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"

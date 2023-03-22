@@ -18,6 +18,7 @@ export const SecondaryButton = (
     <button
       type="button"
       className="inline-flex rounded bg-white py-1.5 px-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+      {...props}
     >
       {props.children}
     </button>

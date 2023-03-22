@@ -97,7 +97,7 @@ const decode = (nip19: string) => {
   }
 };
 
-const encodeBytes = (prefix: string, hex: string): string => {
+export const encodeBytes = (prefix: string, hex: string): string => {
   let data = secp.utils.hexToBytes(hex);
   let words = bech32.toWords(data);
   return bech32.encode(prefix, words, 5000);

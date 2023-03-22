@@ -1,12 +1,13 @@
 import { Product } from "../molecules/ProductList";
 import { Store } from "../molecules/StoreHeader";
-import { faker } from "@faker-js/faker";
 
 export const products: Product[] = [
   {
     id: 1,
     title: "Earthen Bottle",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
     imageAlt:
@@ -15,7 +16,9 @@ export const products: Product[] = [
   {
     id: 2,
     title: "Nomad Tumbler",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
     imageAlt:
@@ -24,7 +27,9 @@ export const products: Product[] = [
   {
     id: 3,
     title: "Focus Paper Refill",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
     imageAlt:
@@ -33,7 +38,9 @@ export const products: Product[] = [
   {
     id: 4,
     title: "Machined Mechanical Pencil",
-    seller: { npub: "npub" + faker.random.alphaNumeric(59) },
+    seller: {
+      npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
+    },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
     imageAlt:
@@ -43,8 +50,9 @@ export const products: Product[] = [
 ];
 
 export const store: Store = {
-  name: faker.company.name(),
-  description: faker.lorem.paragraph(),
+  name: "Kozey - MacGyver",
+  description:
+    "Eos consequuntur enim enim debitis tempora ut totam aperiam qui. Ea non totam rerum voluptate enim. Magnam quasi maxime autem. Quo totam ipsa omnis sequi saepe architecto dignissimos.",
 };
 
 export const LNInvoice =

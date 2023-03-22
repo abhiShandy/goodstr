@@ -1,0 +1,37 @@
+name: Server PR Review
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "server/**"
+
+concurrency: server-pr
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::316516756945:role/github-ci
+          role-session-name: main-branch-deploy
+
+      - name: CDK synth
+        working-directory: ./server
+        run: npx cdk synth
