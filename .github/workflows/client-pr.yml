@@ -5,7 +5,7 @@ on:
     paths:
       - "client/**"
 
-concurrecny: client-pr
+concurrency: client-pr
 
 jobs:
   build:
