@@ -25,7 +25,6 @@ export const CreateProduct = () => {
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
     try {
       setIsLoading(true);
-      const npub = nsecToNpub(event.nsec);
 
       const { url, key } = await getAssetUploadURL();
 
@@ -42,7 +41,7 @@ export const CreateProduct = () => {
             title: event.title,
             description: event.description,
             assetKey: key,
-            npub,
+            npub: event.npub,
           },
           images: [
             {

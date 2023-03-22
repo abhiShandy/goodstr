@@ -7,10 +7,10 @@ export type AddProduct = {
   image: FileList;
   asset: FileList;
   /**
-   * Nostr private key
-   * - should start with nsec
+   * Nostr public key
+   * - should start with npub
    */
-  nsec: string;
+  npub: string;
 };
 
 export default function AddProductForm({
@@ -175,27 +175,27 @@ export default function AddProductForm({
 
             <div className="sm:col-span-6">
               <label
-                htmlFor="nsec"
+                htmlFor="npub"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                NOSTR private key
+                NOSTR public key
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <input
                   type="text"
-                  {...register("nsec", {
+                  {...register("npub", {
                     required: true,
                     disabled: isLoading,
                   })}
-                  id="nsec"
-                  autoComplete="nsec"
+                  id="npub"
+                  autoComplete="npub"
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                  placeholder="nsec..."
+                  placeholder="npub..."
                 />
               </div>
-              <p className="mt-2 text-sm text-gray-500">
+              {/* <p className="mt-2 text-sm text-gray-500">
                 Prove that you are the seller of this product.
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
