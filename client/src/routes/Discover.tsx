@@ -1,17 +1,11 @@
 import { useQuery } from "react-query";
-import { fetchProducts } from "./api/products";
+import { fetchGoods } from "./api/goods";
 import DiscoverPage from "../lib/pages/Discover";
 
 const Discover = () => {
-  const {
-    data: products,
-    error,
-    isLoading,
-  } = useQuery("listProducts", fetchProducts);
+  const { data: goods, error, isLoading } = useQuery("listGoods", fetchGoods);
 
-  return (
-    <DiscoverPage products={products} error={error} isLoading={isLoading} />
-  );
+  return <DiscoverPage goods={goods} error={error} isLoading={isLoading} />;
 };
 
 export default Discover;

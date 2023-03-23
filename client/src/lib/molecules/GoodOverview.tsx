@@ -1,60 +1,59 @@
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import Npub from "../atoms/Npub";
 
-export type Product = {
+export type Good = {
   title: string;
   description: string;
   imageSrc: string;
   imageAlt: string;
-  seller: { npub: string };
+  publisher: { npub: string };
 };
 
-export default function ProductOverview({
-  product,
+export default function GoodOverview({
+  good,
   downloads,
   onDownload,
 }: {
-  product: Product | null;
+  good: Good | null;
   downloads?: number;
   onDownload: () => void;
 }) {
-  if (!product)
-    return <div className="text-center mt-16">No product found</div>;
+  if (!good) return <div className="text-center mt-16">No good found</div>;
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-        {/* Product details */}
+        {/* Good details */}
         <div className="lg:max-w-lg lg:self-end">
           <div className="mt-4">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {product.title}
+              {good.title}
             </h1>
           </div>
 
           <section aria-labelledby="information-heading" className="mt-4">
             <h2 id="information-heading" className="sr-only">
-              Product information
+              Good information
             </h2>
 
             <div className="flex items-center">
               <p className="text-lg text-gray-900 sm:text-xl">
-                <Npub npub={product.seller.npub} />
+                <Npub npub={good.publisher.npub} />
               </p>
             </div>
 
             <div className="mt-4 space-y-6">
-              <p className="text-base text-gray-500">{product.description}</p>
+              <p className="text-base text-gray-500">{good.description}</p>
             </div>
           </section>
         </div>
 
-        {/* Product image */}
+        {/* Good image */}
         <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
           <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg">
             <img
-              src={product.imageSrc}
-              alt={product.imageAlt}
+              src={good.imageSrc}
+              alt={good.imageAlt}
               className="h-full w-full object-cover object-center"
             />
           </div>

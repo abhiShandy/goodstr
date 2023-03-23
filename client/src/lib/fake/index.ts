@@ -1,11 +1,11 @@
-import { Product } from "../molecules/ProductList";
+import { Good } from "../molecules/GoodList";
 import { Store } from "../molecules/StoreHeader";
 
-export const products: Product[] = [
+export const goods: Good[] = [
   {
     id: 1,
     title: "Earthen Bottle",
-    seller: {
+    publisher: {
       npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
     },
     imageSrc:
@@ -16,7 +16,7 @@ export const products: Product[] = [
   {
     id: 2,
     title: "Nomad Tumbler",
-    seller: {
+    publisher: {
       npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
     },
     imageSrc:
@@ -27,18 +27,17 @@ export const products: Product[] = [
   {
     id: 3,
     title: "Focus Paper Refill",
-    seller: {
+    publisher: {
       npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
     },
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
+    imageAlt: "Person using a pen to cross a task off a goodivity paper card.",
   },
   {
     id: 4,
     title: "Machined Mechanical Pencil",
-    seller: {
+    publisher: {
       npub: "npubejkkjd3ffozhvf1briotnw79j9mzvz4z7ey6ifw9ld7975w1ex5csr5a92r",
     },
     imageSrc:
@@ -46,7 +45,7 @@ export const products: Product[] = [
     imageAlt:
       "Hand holding black machined steel mechanical pencil with brass tip and top.",
   },
-  // More products...
+  // More goods...
 ];
 
 export const store: Store = {

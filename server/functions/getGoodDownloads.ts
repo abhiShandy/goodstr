@@ -1,10 +1,10 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { Product } from "../models";
+import { Good } from "../models";
 
 export const handler: APIGatewayProxyHandler = async (event) => {
-  const productId = event.pathParameters?.id;
+  const goodId = event.pathParameters?.id;
 
-  if (!productId) {
+  if (!goodId) {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Missing key" }),
@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     };
   }
 
-  const downloads = await Product.getDownloads(productId);
+  const downloads = await Good.getDownloads(goodId);
 
   return {
     statusCode: 200,

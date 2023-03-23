@@ -1,16 +1,16 @@
 import { useQuery } from "react-query";
 import { LoadingGrid } from "../lib/molecules/LoadingGrid";
 import { Navbar } from "../lib/molecules/Navbar";
-import ProductOverview from "../lib/molecules/ProductOverview";
+import GoodOverview from "../lib/molecules/GoodOverview";
 import { getAssetDownloadURL } from "./api/assets";
-import { fetchProduct, fetchProductDownloads } from "./api/products";
+import { fetchGood, fetchGoodDownloads } from "./api/goods";
 
-const Product = () => {
-  const productId = window.location.pathname.split("/")[2];
+const Good = () => {
+  const goodId = window.location.pathname.split("/")[2];
 
   const downloadAsset = async () => {
     try {
-      const url = await getAssetDownloadURL(productId);
+      const url = await getAssetDownloadURL(goodId);
       window.open(url);
     } catch (e) {
       console.error(e);
@@ -19,13 +19,13 @@ const Product = () => {
   };
 
   const {
-    data: product,
+    data: good,
     error,
     isLoading,
-  } = useQuery(productId, () => fetchProduct(productId));
+  } = useQuery(goodId, () => fetchGood(goodId));
 
-  const { data: downloads } = useQuery(productId + "downloads", () =>
-    fetchProductDownloads(productId)
+  const { data: downloads } = useQuery(goodId + "downloads", () =>
+    fetchGoodDownloads(goodId)
   );
 
   if (isLoading)
@@ -38,12 +38,12 @@ const Product = () => {
 
   if (error) return <div>Something went wrong</div>;
 
-  if (product)
+  if (good)
     return (
       <>
         <Navbar />
-        <ProductOverview
-          product={product}
+        <GoodOverview
+          good={good}
           onDownload={downloadAsset}
           downloads={downloads}
         />
@@ -53,4 +53,4 @@ const Product = () => {
   return <div>Something went wrong</div>;
 };
 
-export default Product;
+export default Good;

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home, Sell, Product, Discover } from "./routes";
+import { Home, Publish, Good, Discover } from "./routes";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -15,12 +15,12 @@ const router = createBrowserRouter([
     element: <Discover />,
   },
   {
-    path: "/sell",
-    element: <Sell />,
+    path: "/publish",
+    element: <Publish />,
   },
   {
-    path: "/products/:productId",
-    element: <Product />,
+    path: "/g/:goodId",
+    element: <Good />,
   },
   {
     path: "*",

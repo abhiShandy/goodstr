@@ -1,18 +1,18 @@
 import { SubmitHandler } from "react-hook-form";
-import AddProductForm, { AddProduct } from "../lib/molecules/AddProductForm";
+import PublishGoodForm, { PublishGood } from "../lib/molecules/PublishGoodForm";
 import { Navbar } from "../lib/molecules/Navbar";
 import { useNavigate } from "react-router-dom";
-import { createProduct } from "./api/products";
+import { createGood } from "./api/goods";
 import { getAssetUploadURL, uploadAsset } from "./api/assets";
 import { useState } from "react";
 import { encodeBytes, publishEvent } from "./utils/nostr";
 
-const Sell = () => {
+const Publish = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<AddProduct> = async (event) => {
+  const onSubmit: SubmitHandler<PublishGood> = async (event) => {
     try {
       setIsLoading(true);
 
@@ -38,8 +38,8 @@ const Sell = () => {
 
           const npub = encodeBytes("npub", pubkey);
 
-          const productId = await createProduct({
-            product: {
+          const goodId = await createGood({
+            good: {
               title: event.title,
               description: event.description,
               assetKey: key,
@@ -58,9 +58,9 @@ const Sell = () => {
             kind: 1,
             tags: [],
             content:
-              `Checkout my new product on GoodStr: https://${
+              `Checkout my new good on GoodStr: https://${
                 import.meta.env.VITE_STAGE
-              }.thegoodstr.com/products/` + productId,
+              }.thegoodstr.com/goods/` + goodId,
           };
 
           // @ts-ignore
@@ -74,7 +74,7 @@ const Sell = () => {
       thumbnailReader.readAsDataURL(event.image[0]);
     } catch (e) {
       console.error("post-error", e);
-      alert("Error creating product");
+      alert("Error creating good");
     } finally {
       setIsLoading(false);
     }
@@ -82,12 +82,12 @@ const Sell = () => {
 
   return (
     <>
-      <Navbar currentPage="sell" />
+      <Navbar currentPage="publish" />
       <div className="max-w-lg mx-auto mt-8 p-4">
-        <AddProductForm onSubmit={onSubmit} isLoading={isLoading} />
+        <PublishGoodForm onSubmit={onSubmit} isLoading={isLoading} />
       </div>
     </>
   );
 };
 
-export default Sell;
+export default Publish;

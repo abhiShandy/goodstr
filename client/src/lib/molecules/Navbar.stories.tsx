@@ -17,8 +17,8 @@ Discover.args = {
   currentPage: "discover",
 };
 
-export const Sell = Template.bind({});
+export const Publish = Template.bind({});
 
-Sell.args = {
-  currentPage: "sell",
+Publish.args = {
+  currentPage: "publish",
 };

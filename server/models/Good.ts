@@ -2,12 +2,12 @@ import nanoid from "./utils/nanoid";
 import MongoClient from "./utils/mongo";
 import Image from "./Image";
 
-export type ProductFields = {
+export type GoodFields = {
   id: string;
   title: string;
   description: string;
   images: Image[];
-  seller: {
+  publisher: {
     npub: string;
   };
   asset: {
@@ -17,12 +17,12 @@ export type ProductFields = {
   updatedAt: Date;
 };
 
-class Product {
+class Good {
   id: string;
   title: string;
   description: string;
   images: Image[];
-  seller: {
+  publisher: {
     npub: string;
   };
   asset: {
@@ -48,7 +48,7 @@ class Product {
     this.title = title;
     this.description = description;
     this.images = images;
-    this.seller = { npub };
+    this.publisher = { npub };
     this.asset = { s3Key: assetKey };
     this.createdAt = new Date();
     this.updatedAt = new Date();
@@ -59,20 +59,20 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection<ProductFields>("products")
+        .collection<GoodFields>("goods")
         .insertOne({
           id: this.id,
           title: this.title,
           description: this.description,
           images: this.images,
-          seller: this.seller,
+          publisher: this.publisher,
           asset: this.asset,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         });
-      console.log("Inserted product: ", res.insertedId);
+      console.log("Inserted good: ", res.insertedId);
     } catch (err) {
-      console.error("Error inserting product: ", err);
+      console.error("Error inserting good: ", err);
     }
   }
 
@@ -81,13 +81,13 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection<ProductFields>("products")
+        .collection<GoodFields>("goods")
         .find({}, { limit: 12, sort: { createdAt: -1 } })
         .toArray();
-      console.log("Found products: ", res.length);
+      console.log("Found goods: ", res.length);
       return res;
     } catch (err) {
-      console.error("Error finding products: ", err);
+      console.error("Error finding goods: ", err);
       return [];
     }
   }
@@ -97,12 +97,12 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection<ProductFields>("products")
+        .collection<GoodFields>("goods")
         .findOne({ id });
-      console.log("Found product: ", res);
+      console.log("Found good: ", res);
       return res;
     } catch (err) {
-      console.error("Error finding product: ", err);
+      console.error("Error finding good: ", err);
       return null;
     }
   }
@@ -112,7 +112,7 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection<{ id: string; downloads: number }>("product-downloads")
+        .collection<{ id: string; downloads: number }>("good-downloads")
         .findOneAndUpdate({ id }, { $inc: { downloads: 1 } }, { upsert: true });
     } catch (err) {
       console.error("Error incrementing downloads: ", err);
@@ -124,7 +124,7 @@ class Product {
       const mongoClient = await MongoClient();
       const res = await mongoClient
         .db("thegoodstr")
-        .collection<{ id: string; downloads: number }>("product-downloads")
+        .collection<{ id: string; downloads: number }>("good-downloads")
         .findOne({ id });
       return res?.downloads || 0;
     } catch (err) {
@@ -134,4 +134,4 @@ class Product {
   }
 }
 
-export default Product;
+export default Good;

@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { Product } from "../models";
+import { Good } from "../models";
 
-interface RetrieveProductResponse {
+interface RetrieveGoodResponse {
   id: string;
   title: string;
   description: string;
@@ -19,34 +19,34 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "Missing product id",
+      body: "Missing good id",
     };
   }
 
-  const product = await Product.retrieve(event.pathParameters.id);
+  const good = await Good.retrieve(event.pathParameters.id);
 
-  if (!product) {
+  if (!good) {
     return {
       statusCode: 404,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "Product not found",
+      body: "Good not found",
     };
   }
 
-  const response: RetrieveProductResponse = {
-    id: product.id,
-    title: product.title,
-    description: product.description,
-    images: product.images.map((image) => {
+  const response: RetrieveGoodResponse = {
+    id: good.id,
+    title: good.title,
+    description: good.description,
+    images: good.images.map((image) => {
       return {
         src: `https://${process.env.BUCKET}.s3.amazonaws.com/${image.s3Key}`,
       };
     }),
-    npub: product.seller.npub,
+    npub: good.publisher.npub,
     asset: {
-      s3Key: product.asset.s3Key,
+      s3Key: good.asset.s3Key,
     },
   };
 

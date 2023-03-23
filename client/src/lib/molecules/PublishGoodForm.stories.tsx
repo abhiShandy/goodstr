@@ -1,10 +1,10 @@
-import AddProductForm from "./AddProductForm";
+import AddGoodForm from "./PublishGoodForm";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-const meta: ComponentMeta<typeof AddProductForm> = {
-  title: "AddProductForm",
-  component: AddProductForm,
+const meta: ComponentMeta<typeof AddGoodForm> = {
+  title: "AddGoodForm",
+  component: AddGoodForm,
   decorators: [
     (Story) => (
       <div className="max-w-lg mx-auto">
@@ -16,8 +16,8 @@ const meta: ComponentMeta<typeof AddProductForm> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof AddProductForm> = (args) => (
-  <AddProductForm {...args} />
+const Template: ComponentStory<typeof AddGoodForm> = (args) => (
+  <AddGoodForm {...args} />
 );
 
 export const Default = Template.bind({});

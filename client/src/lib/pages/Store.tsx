@@ -1,10 +1,10 @@
 import { Navbar } from "../molecules/Navbar";
-import ProductList, { Product } from "../molecules/ProductList";
+import GoodList, { Good } from "../molecules/GoodList";
 import StoreHeader from "../molecules/StoreHeader";
 
 export type StoreProps = {
   store?: { name: string; description: string };
-  products?: Product[];
+  goods?: Good[];
 };
 
 export const Store = (props: StoreProps) => {
@@ -12,7 +12,7 @@ export const Store = (props: StoreProps) => {
     <>
       <Navbar />
       {props.store && <StoreHeader store={props.store} />}
-      {props.products && <ProductList products={props.products} />}
+      {props.goods && <GoodList goods={props.goods} />}
     </>
   );
 };

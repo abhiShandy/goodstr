@@ -1,6 +1,6 @@
 import Discover from "./Discover";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { products } from "../fake";
+import { goods } from "../fake";
 
 export default {
   title: "Pages/Discover",
@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof Discover> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  products,
+  goods,
 };
 
 export const Loading = Template.bind({});
@@ -28,5 +28,5 @@ Error.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  products: [],
+  goods: [],
 };

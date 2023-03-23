@@ -1,7 +1,7 @@
 type Sale = {
   id: string;
-  productName: string;
-  productPrice: string;
+  goodName: string;
+  goodPrice: string;
   buyerPubKey: string;
   purchaseDate: Date;
 };
@@ -29,13 +29,13 @@ export default function Sales({ sales }: { sales: Sale[] }) {
                     scope="col"
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                   >
-                    Product Name
+                    Good Name
                   </th>
                   <th
                     scope="col"
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                   >
-                    Product Price
+                    Good Price
                   </th>
                   <th
                     scope="col"
@@ -55,10 +55,10 @@ export default function Sales({ sales }: { sales: Sale[] }) {
                 {sales.map((sale) => (
                   <tr key={sale.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-0">
-                      {sale.productName}
+                      {sale.goodName}
                     </td>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                      {sale.productPrice}
+                      {sale.goodPrice}
                     </td>
                     <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                       {sale.purchaseDate.toLocaleString()}

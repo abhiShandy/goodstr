@@ -23,7 +23,7 @@ function SubscribeForm() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
         <div className="max-w-xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:col-span-7">
           <h2 className="inline sm:block lg:inline xl:block">
-            Want product news and updates?
+            Want good news and updates?
           </h2>{" "}
           <p className="inline sm:block lg:inline xl:block">
             Sign up for latest updates.
@@ -65,20 +65,20 @@ const Home = () => {
           GoodStr
         </h1>
         <h2 className="mt-6 text-lg leading-8 text-gray-600">
-          A place to discover and share great products
+          A place to discover and publish great digital goods
         </h2>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 px-8">
           <a
             href="/discover"
             className="rounded-md bg-gray-600 py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
           >
-            Discover Products
+            Discover goods
           </a>
           <a
-            href="/sell"
+            href="/publish"
             className="rounded-md bg-white py-2.5 px-3.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
-            Sell a product
+            Publish a good
           </a>
         </div>
       </div>

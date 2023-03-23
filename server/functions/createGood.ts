@@ -1,6 +1,6 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { Image, Product } from "../models";
+import { Image, Good } from "../models";
 
 const s3Client = new S3Client({});
 
@@ -54,7 +54,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
     console.info("Uploaded image to S3");
 
-    const newProduct = new Product({
+    const newGood = new Good({
       title,
       description,
       images: [newImage],
@@ -62,7 +62,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       npub,
     });
 
-    await newProduct.create();
+    await newGood.create();
 
     return {
       statusCode: 200,
@@ -70,8 +70,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        product: {
-          id: newProduct.id,
+        good: {
+          id: newGood.id,
         },
       }),
     };
@@ -82,7 +82,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "Failed to create product. Check logs.",
+      body: "Failed to create good. Check logs.",
     };
   }
 };

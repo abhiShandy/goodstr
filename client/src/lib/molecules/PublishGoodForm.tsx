@@ -1,7 +1,7 @@
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-export type AddProduct = {
+export type PublishGood = {
   title: string;
   description: string;
   image: FileList;
@@ -13,14 +13,14 @@ export type AddProduct = {
   npub: string;
 };
 
-export default function AddProductForm({
+export default function PublishGoodForm({
   onSubmit,
   isLoading = false,
 }: {
-  onSubmit: SubmitHandler<AddProduct>;
+  onSubmit: SubmitHandler<PublishGood>;
   isLoading: boolean;
 }) {
-  const { register, handleSubmit } = useForm<AddProduct>();
+  const { register, handleSubmit } = useForm<PublishGood>();
 
   return (
     <form
@@ -31,7 +31,7 @@ export default function AddProductForm({
         <div>
           <div>
             <h3 className="text-base font-semibold leading-6 text-gray-900">
-              Add a product to sell
+              Publish your digital good
             </h3>
           </div>
 
@@ -56,7 +56,7 @@ export default function AddProductForm({
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                Give a catchy name to your product.
+                Give a catchy name to your good.
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default function AddProductForm({
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                Write a few sentences about the product.
+                Write a few sentences about the good.
               </p>
             </div>
 
@@ -130,7 +130,7 @@ export default function AddProductForm({
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                Make your product stand out with a great thumbnail.
+                Make your good stand out with a great thumbnail.
               </p>
             </div>
 
@@ -179,7 +179,7 @@ export default function AddProductForm({
       <div className="pt-5">
         <div className="flex justify-end">
           <input
-            value={isLoading ? "Uploading ..." : "Add"}
+            value={isLoading ? "Publishing ..." : "Publish"}
             disabled={isLoading}
             type="submit"
             className={

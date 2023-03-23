@@ -16,7 +16,7 @@ function classNames(...classes: string[]) {
 }
 
 type NavbarProps = {
-  currentPage?: "discover" | "sell";
+  currentPage?: "discover" | "publish";
 };
 
 export const Navbar = ({ currentPage }: NavbarProps) => {
@@ -48,16 +48,16 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
                   </a>
 
                   <a
-                    href="/sell"
+                    href="/publish"
                     className={
                       "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900" +
-                      (currentPage === "sell"
+                      (currentPage === "publish"
                         ? " border-gray-500"
                         : " border-transparent hover:border-gray-300 hover:text-gray-700")
                     }
                   >
                     <BiBitcoin className="w-5 h-5 mr-2" />
-                    Sell
+                    Publish
                   </a>
                   {/* <a
                     href="#"
@@ -185,15 +185,15 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
-                href="/sell"
+                href="/publish"
                 className={
                   "block border-l-4 py-2 pl-3 pr-4 text-base font-medium" +
-                  (currentPage === "sell"
+                  (currentPage === "publish"
                     ? " border-gray-500 bg-gray-50 text-gray-700"
                     : " border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700")
                 }
               >
-                Sell
+                Publish
               </Disclosure.Button>
               {/* <Disclosure.Button
                 as="a"

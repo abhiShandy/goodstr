@@ -1,6 +1,6 @@
 import { Store } from "./Store";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { products, store } from "../fake";
+import { goods, store } from "../fake";
 
 export default {
   title: "Pages/Store",
@@ -12,15 +12,15 @@ const Template: ComponentStory<typeof Store> = (args) => <Store {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   store,
-  products,
+  goods,
 };
 
 export const EmptyStore = Template.bind({});
 EmptyStore.args = {
-  products,
+  goods,
 };
 
-export const EmptyProducts = Template.bind({});
-EmptyProducts.args = {
+export const EmptyGoods = Template.bind({});
+EmptyGoods.args = {
   store,
 };

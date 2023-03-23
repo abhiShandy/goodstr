@@ -11,7 +11,7 @@ export class ServerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const imageBucket = new Bucket(this, "ProductImages", {
+    const imageBucket = new Bucket(this, "GoodImages", {
       publicReadAccess: true,
     });
 
@@ -36,36 +36,36 @@ export class ServerStack extends Stack {
       : Secret.fromSecretNameV2(this, `MONGO_URL`, `MONGO_URL`);
 
     // === Lambdas ===
-    const createProductFn = new NodejsFunction(this, "CreateProduct", {
-      entry: join(__dirname, "../server/functions/createProduct.ts"),
+    const createGoodFn = new NodejsFunction(this, "CreateGood", {
+      entry: join(__dirname, "../server/functions/createGood.ts"),
       environment: {
         BUCKET: imageBucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
     });
 
-    imageBucket.grantWrite(createProductFn);
-    secret.grantRead(createProductFn);
+    imageBucket.grantWrite(createGoodFn);
+    secret.grantRead(createGoodFn);
 
-    const listProductFn = new NodejsFunction(this, "ListProducts", {
-      entry: join(__dirname, "../server/functions/listProducts.ts"),
+    const listGoodFn = new NodejsFunction(this, "ListGoods", {
+      entry: join(__dirname, "../server/functions/listGoods.ts"),
       environment: {
         BUCKET: imageBucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
     });
 
-    secret.grantRead(listProductFn);
+    secret.grantRead(listGoodFn);
 
-    const retrieveProductFn = new NodejsFunction(this, "RetrieveProduct", {
-      entry: join(__dirname, "../server/functions/retrieveProduct.ts"),
+    const retrieveGoodFn = new NodejsFunction(this, "RetrieveGood", {
+      entry: join(__dirname, "../server/functions/retrieveGood.ts"),
       environment: {
         BUCKET: imageBucket.bucketName,
         SECRETS_ARN: secret.secretArn,
       },
     });
 
-    secret.grantRead(retrieveProductFn);
+    secret.grantRead(retrieveGoodFn);
 
     const subscribeFn = new NodejsFunction(this, "Subscribe", {
       entry: join(__dirname, "../server/functions/subscribe.ts"),
@@ -99,18 +99,14 @@ export class ServerStack extends Stack {
     secret.grantRead(getAssetDownloadURL);
     assetBucket.grantRead(getAssetDownloadURL);
 
-    const getProductDownloadsFn = new NodejsFunction(
-      this,
-      "GetProductDownloads",
-      {
-        entry: join(__dirname, "../server/functions/getProductDownloads.ts"),
-        environment: {
-          SECRETS_ARN: secret.secretArn,
-        },
-      }
-    );
+    const getGoodDownloadsFn = new NodejsFunction(this, "GetGoodDownloads", {
+      entry: join(__dirname, "../server/functions/getGoodDownloads.ts"),
+      environment: {
+        SECRETS_ARN: secret.secretArn,
+      },
+    });
 
-    secret.grantRead(getProductDownloadsFn);
+    secret.grantRead(getGoodDownloadsFn);
 
     // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
@@ -127,30 +123,27 @@ export class ServerStack extends Stack {
     });
 
     /**
-     * /products
+     * /goods
      */
-    const productsEndpoint = restApi.root.addResource("products");
+    const goodsEndpoint = restApi.root.addResource("goods");
 
-    productsEndpoint.addMethod("POST", new LambdaIntegration(createProductFn));
-    productsEndpoint.addMethod("GET", new LambdaIntegration(listProductFn));
-
-    /**
-     * /products/{id}
-     */
-    const productsIdEndpoint = productsEndpoint.addResource("{id}");
-    productsIdEndpoint.addMethod(
-      "GET",
-      new LambdaIntegration(retrieveProductFn)
-    );
+    goodsEndpoint.addMethod("POST", new LambdaIntegration(createGoodFn));
+    goodsEndpoint.addMethod("GET", new LambdaIntegration(listGoodFn));
 
     /**
-     * /products/{id}/assets
+     * /goods/{id}
      */
-    const assetEndpoint = productsIdEndpoint.addResource("assets");
+    const goodsIdEndpoint = goodsEndpoint.addResource("{id}");
+    goodsIdEndpoint.addMethod("GET", new LambdaIntegration(retrieveGoodFn));
+
     /**
-     * /products/upload
+     * /goods/{id}/assets
      */
-    const assetUploadEndpoint = productsEndpoint.addResource("upload");
+    const assetEndpoint = goodsIdEndpoint.addResource("assets");
+    /**
+     * /goods/upload
+     */
+    const assetUploadEndpoint = goodsEndpoint.addResource("upload");
 
     assetUploadEndpoint.addMethod(
       "GET",
@@ -160,12 +153,12 @@ export class ServerStack extends Stack {
     assetEndpoint.addMethod("GET", new LambdaIntegration(getAssetDownloadURL));
 
     /**
-     * /products/{id}/downloads
+     * /goods/{id}/downloads
      */
-    const downloadsEndpoint = productsIdEndpoint.addResource("downloads");
+    const downloadsEndpoint = goodsIdEndpoint.addResource("downloads");
     downloadsEndpoint.addMethod(
       "GET",
-      new LambdaIntegration(getProductDownloadsFn)
+      new LambdaIntegration(getGoodDownloadsFn)
     );
 
     /**
