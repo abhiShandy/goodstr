@@ -44,7 +44,7 @@ class Good {
     npub: string;
     assetKey: string;
   }) {
-    this.id = "prod_" + nanoid();
+    this.id = nanoid();
     this.title = title;
     this.description = description;
     this.images = images;
