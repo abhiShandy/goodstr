@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createProduct } from "./api/products";
 import { getAssetUploadURL, uploadAsset } from "./api/assets";
 import { useState } from "react";
-import { publishEvent } from "./utils/nostr";
+import { encodeBytes, publishEvent } from "./utils/nostr";
 
 const Sell = () => {
   const navigate = useNavigate();
@@ -33,7 +33,9 @@ const Sell = () => {
           }
 
           // @ts-ignore
-          const npub = await window.nostr.getPublicKey();
+          const pubkey = await window.nostr.getPublicKey();
+
+          const npub = encodeBytes("npub", pubkey);
 
           const productId = await createProduct({
             product: {
