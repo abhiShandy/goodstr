@@ -59,10 +59,13 @@ type CreateProductInput = {
   images: [{ type: string; base64str: string }];
 };
 
-export const createProduct = ({ product, images }: CreateProductInput) => {
+export const createProduct = async ({
+  product,
+  images,
+}: CreateProductInput) => {
   const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
 
-  return axios.post<{ product: { id: string } }>(PRODUCTS_URL, {
+  const response = await axios.post<{ product: { id: string } }>(PRODUCTS_URL, {
     title: product.title,
     description: product.description,
     images: [
@@ -74,6 +77,8 @@ export const createProduct = ({ product, images }: CreateProductInput) => {
     assetKey: product.assetKey,
     npub: product.npub,
   });
+
+  return response.data.product.id;
 };
 
 export const fetchProductDownloads = async (productId: string) => {

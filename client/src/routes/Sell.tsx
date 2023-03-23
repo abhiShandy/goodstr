@@ -1,7 +1,6 @@
 import { SubmitHandler } from "react-hook-form";
 import AddProductForm, { AddProduct } from "../lib/molecules/AddProductForm";
 import { Navbar } from "../lib/molecules/Navbar";
-import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "./api/products";
 import { getAssetUploadURL, uploadAsset } from "./api/assets";
@@ -12,12 +11,6 @@ const Sell = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const mutateProduct = useMutation(createProduct, {
-    onError: () => {
-      alert("Error creating product");
-    },
-  });
 
   const onSubmit: SubmitHandler<AddProduct> = async (event) => {
     try {
@@ -33,42 +26,40 @@ const Sell = () => {
 
         const base64str = result.replace(/^data:image\/(png|jpeg);base64,/, "");
 
-        mutateProduct.mutate({
-          product: {
-            title: event.title,
-            description: event.description,
-            assetKey: key,
-            npub: event.npub,
-          },
-          images: [
-            {
-              type: event.image[0].type,
-              base64str,
+        try {
+          const productId = await createProduct({
+            product: {
+              title: event.title,
+              description: event.description,
+              assetKey: key,
+              npub: event.npub,
             },
-          ],
-        });
+            images: [
+              {
+                type: event.image[0].type,
+                base64str,
+              },
+            ],
+          });
+
+          const unsignedEvent = {
+            created_at: Math.trunc(Date.now() / 1000),
+            kind: 1,
+            tags: [],
+            content:
+              "Checkout my new product on GoodStr: https://demo.thegoodstr.com/products/" +
+              productId,
+          };
+
+          // @ts-ignore
+          const signedEvent = await window.nostr.signEvent(unsignedEvent);
+          await publishEvent(signedEvent);
+          navigate("/discover");
+        } catch (e) {
+          console.error("sign-error", e);
+        }
       };
       thumbnailReader.readAsDataURL(event.image[0]);
-
-      const unsignedEvent = {
-        created_at: Math.trunc(Date.now() / 1000),
-        kind: 1,
-        tags: [],
-        content:
-          "Checkout my new product on GoodStr:" +
-          mutateProduct.data?.data.product.id,
-      };
-      console.log("unsignedEvent", unsignedEvent);
-      try {
-        // @ts-ignore
-        const signedEvent = await window.nostr.signEvent(unsignedEvent);
-        console.log("signedEvent", signedEvent);
-        await publishEvent(signedEvent);
-        console.log("event published");
-        navigate("/discover");
-      } catch (e) {
-        console.error("sign-error", e);
-      }
     } catch (e) {
       console.error("post-error", e);
       alert("Error creating product");
