@@ -6,17 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { createProduct } from "./api/products";
 import { getAssetUploadURL, uploadAsset } from "./api/assets";
 import { useState } from "react";
-import { nsecToNpub } from "./utils/nostr";
+import { publishEvent } from "./utils/nostr";
 
-export const CreateProduct = () => {
+const Sell = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const mutateProduct = useMutation(createProduct, {
-    onSuccess: () => {
-      navigate("/discover");
-    },
     onError: () => {
       alert("Error creating product");
     },
@@ -52,6 +49,26 @@ export const CreateProduct = () => {
         });
       };
       thumbnailReader.readAsDataURL(event.image[0]);
+
+      const unsignedEvent = {
+        created_at: Math.trunc(Date.now() / 1000),
+        kind: 1,
+        tags: [],
+        content:
+          "Checkout my new product on GoodStr:" +
+          mutateProduct.data?.data.product.id,
+      };
+      console.log("unsignedEvent", unsignedEvent);
+      try {
+        // @ts-ignore
+        const signedEvent = await window.nostr.signEvent(unsignedEvent);
+        console.log("signedEvent", signedEvent);
+        await publishEvent(signedEvent);
+        console.log("event published");
+        navigate("/discover");
+      } catch (e) {
+        console.error("sign-error", e);
+      }
     } catch (e) {
       console.error("post-error", e);
       alert("Error creating product");
@@ -64,11 +81,10 @@ export const CreateProduct = () => {
     <>
       <Navbar currentPage="sell" />
       <div className="max-w-lg mx-auto mt-8 p-4">
-        <AddProductForm
-          onSubmit={onSubmit}
-          isLoading={mutateProduct.isLoading || isLoading}
-        />
+        <AddProductForm onSubmit={onSubmit} isLoading={isLoading} />
       </div>
     </>
   );
 };
+
+export default Sell;

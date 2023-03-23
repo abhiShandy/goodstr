@@ -1,6 +1,6 @@
 import { Home } from "./Home";
 import Product from "./Product";
-import { CreateProduct } from "./CreateProduct";
+import Sell from "./Sell";
 import Discover from "./Discover";
 
-export { Home, Product, CreateProduct, Discover };
+export { Home, Product, Sell, Discover };

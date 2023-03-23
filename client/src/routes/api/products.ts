@@ -61,7 +61,8 @@ type CreateProductInput = {
 
 export const createProduct = ({ product, images }: CreateProductInput) => {
   const PRODUCTS_URL = import.meta.env.VITE_BASE_URL + "/products";
-  return axios.post(PRODUCTS_URL, {
+
+  return axios.post<{ product: { id: string } }>(PRODUCTS_URL, {
     title: product.title,
     description: product.description,
     images: [

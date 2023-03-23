@@ -65,11 +65,15 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     await newProduct.create();
 
     return {
-      statusCode: 204,
+      statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "Success!",
+      body: JSON.stringify({
+        product: {
+          id: newProduct.id,
+        },
+      }),
     };
   } catch (err) {
     console.error(err);

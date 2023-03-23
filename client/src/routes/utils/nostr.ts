@@ -85,7 +85,7 @@ export const nsecToNpub = (nsec: string) => {
   return encodeBytes("npub", pubkey);
 };
 
-const decode = (nip19: string) => {
+export const decode = (nip19: string) => {
   const { prefix, words } = bech32.decode(nip19);
   let data = new Uint8Array(bech32.fromWords(words));
   switch (prefix) {
@@ -101,4 +101,21 @@ export const encodeBytes = (prefix: string, hex: string): string => {
   let data = secp.utils.hexToBytes(hex);
   let words = bech32.toWords(data);
   return bech32.encode(prefix, words, 5000);
+};
+
+export const publishEvent = async (event: any) => {
+  const ws = new WebSocket("wss://nostr.thegoodstr.com");
+  ws.onopen = () => {
+    ws.send(JSON.stringify(["EVENT", event]));
+    console.log("NOSTR event sent!");
+  };
+  ws.onmessage = (event) => {
+    console.log(event.data);
+  };
+  ws.onclose = () => {
+    console.log("closed");
+  };
+  ws.onerror = () => {
+    console.log("error");
+  };
 };
