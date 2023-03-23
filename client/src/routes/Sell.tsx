@@ -29,7 +29,8 @@ const Sell = () => {
         try {
           // @ts-ignore
           if (!window.nostr) {
-            throw new Error("Nostr not initialized");
+            alert("Nostr not initialized");
+            return;
           }
 
           // @ts-ignore
