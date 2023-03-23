@@ -27,12 +27,20 @@ const Sell = () => {
         const base64str = result.replace(/^data:image\/(png|jpeg);base64,/, "");
 
         try {
+          // @ts-ignore
+          if (!window.nostr) {
+            throw new Error("Nostr not initialized");
+          }
+
+          // @ts-ignore
+          const npub = await window.nostr.getPublicKey();
+
           const productId = await createProduct({
             product: {
               title: event.title,
               description: event.description,
               assetKey: key,
-              npub: event.npub,
+              npub,
             },
             images: [
               {
@@ -47,8 +55,9 @@ const Sell = () => {
             kind: 1,
             tags: [],
             content:
-              "Checkout my new product on GoodStr: https://demo.thegoodstr.com/products/" +
-              productId,
+              `Checkout my new product on GoodStr: https://${
+                import.meta.env.VITE_STAGE
+              }.thegoodstr.com/products/` + productId,
           };
 
           // @ts-ignore
