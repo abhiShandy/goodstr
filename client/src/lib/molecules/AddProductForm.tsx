@@ -1,7 +1,5 @@
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { encodeBytes } from "../../routes/utils/nostr";
-import { SecondaryButton } from "../atoms/Button";
 
 export type AddProduct = {
   title: string;
@@ -22,24 +20,7 @@ export default function AddProductForm({
   onSubmit: SubmitHandler<AddProduct>;
   isLoading: boolean;
 }) {
-  const { register, handleSubmit, setValue } = useForm<AddProduct>();
-
-  const importNpub = async () => {
-    //@ts-ignore
-    if (!window.nostr) {
-      alert(
-        "NOSTR extension not found. If you use Alby, please setup NOSTR in the your account."
-      );
-      return;
-    }
-    try {
-      //@ts-ignore
-      const pubkey_hex = await window.nostr.getPublicKey();
-      setValue("npub", encodeBytes("npub", pubkey_hex));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { register, handleSubmit } = useForm<AddProduct>();
 
   return (
     <form
@@ -189,33 +170,6 @@ export default function AddProductForm({
               </div>
               <p className="mt-2 text-sm text-gray-500">
                 Combine multiple files into a ZIP file.
-              </p>
-            </div>
-
-            <div className="sm:col-span-6">
-              <label
-                htmlFor="npub"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                NOSTR public key
-              </label>
-              <div className="mt-2 flex rounded-md shadow-sm">
-                <input
-                  type="text"
-                  {...register("npub", {
-                    required: true,
-                    disabled: isLoading,
-                  })}
-                  id="npub"
-                  autoComplete="npub"
-                  className="block w-full rounded-md border-0 mr-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                  placeholder="npub..."
-                />
-                <SecondaryButton onClick={importNpub}>Import</SecondaryButton>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">
-                You can either paste your NOSTR public key or import it from a
-                browser extension.
               </p>
             </div>
           </div>
