@@ -60,7 +60,7 @@ const Publish = () => {
             content:
               `Checkout my new good on GoodStr: https://${
                 import.meta.env.VITE_STAGE
-              }.thegoodstr.com/goods/` + goodId,
+              }.thegoodstr.com/g/` + goodId,
           };
 
           // @ts-ignore
