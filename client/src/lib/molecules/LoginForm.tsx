@@ -16,7 +16,7 @@ export default function LoginForm(props: LoginFormProps) {
           This example requires updating your template:
   
           ```
-          <html class="h-full bg-gray-50">
+          <html class="h-full bg-purple-50">
           <body class="h-full">
           ```
         */}
@@ -59,7 +59,7 @@ export default function LoginForm(props: LoginFormProps) {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                  className="flex w-full justify-center rounded-md bg-purple-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                 >
                   Sign in
                 </button>
@@ -67,7 +67,7 @@ export default function LoginForm(props: LoginFormProps) {
             </form>
             {/* <p className="text-center mt-4 text-sm">OR</p>
             <div className="mt-4">
-              <button className="flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+              <button className="flex w-full justify-center rounded-md bg-purple-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
                 Generate
               </button>
             </div> */}

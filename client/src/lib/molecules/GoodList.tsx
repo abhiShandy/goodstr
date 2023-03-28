@@ -22,7 +22,7 @@ export default function GoodList({ goods }: { goods: Good[] }) {
           {goods.length > 0 &&
             goods.map((good) => (
               <a key={good.id} className="group" href={"/g/" + good.id}>
-                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-purple-200 xl:aspect-w-7 xl:aspect-h-8">
                   <img
                     src={good.imageSrc}
                     alt={good.imageAlt}

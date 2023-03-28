@@ -6,7 +6,7 @@ const meta: ComponentMeta<typeof LoginForm> = {
   component: LoginForm,
   decorators: [
     (Story) => (
-      <div className="bg-gray-50">
+      <div className="bg-purple-50">
         <Story />
       </div>
     ),

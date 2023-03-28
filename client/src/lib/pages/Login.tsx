@@ -10,7 +10,7 @@ const Login = (props: LoginProps) => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-200">
+      <div className="bg-purple-200">
         <LoginForm onSubmit={props.onSubmit} />
       </div>
     </>

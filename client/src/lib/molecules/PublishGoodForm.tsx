@@ -184,7 +184,9 @@ export default function PublishGoodForm({
             type="submit"
             className={
               "ml-3 inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600" +
-              (isLoading ? " bg-gray-400" : " bg-gray-600 hover:bg-gray-500")
+              (isLoading
+                ? " bg-purple-400"
+                : " bg-purple-600 hover:bg-purple-500")
             }
           />
         </div>
