@@ -110,7 +110,7 @@ export class ServerStack extends Stack {
 
     // === API Gateway ===
     const restApi = new RestApi(this, "RestApi", {
-      restApiName: `${stage || "dev"}-thegoodstr-api`,
+      restApiName: `${stage || "dev"}-goodstr-api`,
       deployOptions: {
         stageName: stage || "dev",
       },

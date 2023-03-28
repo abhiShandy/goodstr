@@ -82,7 +82,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <a
                   className="rounded-full bg-white p-1 mx-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                  href="https://github.com/abhishandy/thegoodstr"
+                  href="https://github.com/abhishandy/goodstr"
                   target="_blank"
                 >
                   <span className="sr-only">Open Github</span>
@@ -237,7 +237,7 @@ export const Navbar = ({ currentPage }: NavbarProps) => {
 
                 <a
                   className="flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                  href="https://github.com/abhishandy/thegoodstr"
+                  href="https://github.com/abhishandy/goodstr"
                   target="_blank"
                 >
                   <span className="sr-only">Open Github</span>

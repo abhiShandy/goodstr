@@ -8,7 +8,7 @@ Using Nostr, I am setting up a platform for publishing digital goods.
 
 This project is in **active** development
 
-Track the progress on [GitHub](https://github.com/abhiShandy/thegoodstr)
+Track the progress on [GitHub](https://github.com/abhiShandy/goodstr)
 
 Follow the frontend development on [Chromatic](https://640acbdf2c9db57b4e7da9c6-mjkwjlmqoz.chromatic.com/)
 
