@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home, Publish, Good, Discover } from "./routes";
+import { Home, Publish, Good, Discover, NotFound } from "./routes";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -21,10 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/g/:goodId",
     element: <Good />,
+    errorElement: <NotFound />,
   },
   {
     path: "*",
-    element: <div>404</div>,
+    element: <NotFound />,
   },
 ]);
 

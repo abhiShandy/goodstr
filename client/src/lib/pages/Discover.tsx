@@ -9,7 +9,7 @@ export type HomeProps = {
   isLoading: boolean;
 };
 
-const SomethingWentWrong = () => {
+const Error = ({ message }: { message: string }) => {
   return (
     <>
       <Navbar currentPage="discover" />
@@ -17,7 +17,7 @@ const SomethingWentWrong = () => {
         <span>
           <ExclamationTriangleIcon className="h-6  mr-2" />
         </span>
-        <span>Something went wrong</span>
+        <span>{message}</span>
       </div>
     </>
   );
@@ -32,7 +32,7 @@ const Discover = (props: HomeProps) => {
       </>
     );
 
-  if (props.error) return <SomethingWentWrong />;
+  if (props.error) return <Error message="Error retrieving list of goods." />;
 
   if (props.goods && props.goods.length > 0)
     return (
@@ -49,7 +49,7 @@ const Discover = (props: HomeProps) => {
       </>
     );
 
-  return <SomethingWentWrong />;
+  return <Error message="No goods found." />;
 };
 
 export default Discover;
